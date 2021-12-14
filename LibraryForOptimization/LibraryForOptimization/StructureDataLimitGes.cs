@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LibraryForOptimization
 {
-    public class StructureDataLimitGes
+    public class StructureDataLimitGes 
     {
         /// <summary>
         /// Период действия ограничения 
@@ -26,6 +26,11 @@ namespace LibraryForOptimization
         /// <summary>
         /// Значение ограничения
         /// </summary>
-        public double NumericalValue { get; set; }        
+        public double NumericalValue { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        ///public string Namestation { get; set; }
     }
 }

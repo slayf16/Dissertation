@@ -11,13 +11,14 @@ using System.Threading.Tasks;
 
 namespace Test
 {
-    class Program
+    public class Program
     {
         static void Main(string[] args)
         {
             string way = "C:/Users/AMK29/Desktop/Файлы тесты для диплома";
             string[] path = Directory.GetFiles(way);
-            List<StructureDataLimitGes> d = WorkWithExcel.InputStruct(path[0]);
+            List<StructureDataLimitGes> d = WorkWithExcel.InputStructLimit(path[0]);
+            List<StructureСaracteristicGes> d1 = WorkWithExcel.InputStructCharacter(path[1]);
             Console.WriteLine("все");
             Console.ReadKey();
         }          

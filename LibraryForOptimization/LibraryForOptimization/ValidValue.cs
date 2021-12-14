@@ -6,8 +6,16 @@ using System.Threading.Tasks;
 
 namespace LibraryForOptimization
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class ValidValue
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
         public static bool ValidRestriction(string text)
         {
             bool restriction = true;
@@ -16,6 +24,19 @@ namespace LibraryForOptimization
                 restriction = false;
             }
             return restriction;
+        }
+
+        public bool ValidNum(int num)
+        {
+            if(num>0)
+            {
+                return true;
+            }
+            else
+            {
+                throw new Exception("в файле присутствуют " +
+                    "отрицательные величины, проверьте входной файл");
+            }                     
         }
     }
 }

@@ -11,19 +11,17 @@ namespace LibraryForOptimization
         /// <summary>
         /// зависимая переменная характеристики
         /// </summary>
-        double DependentVariable { get; set; }
+        public double DependentVariable { get; set; }
 
 
         /// <summary>
         /// независимая переменная характеристики
         /// </summary>
-        double IndependentVariable { get; set; }
-
+        public double IndependentVariable { get; set; }
 
         /// <summary>
-        /// Дополнительная зависимая переменная (только для 
-        /// характеристики удельного расхода), в остальных случаях NULL
+        /// 
         /// </summary>
-        double DependentVariable2 { get; set; }
+       /// public string Namestation { get; set; }
     }
 }
