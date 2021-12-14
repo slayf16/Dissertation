@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LibraryForOptimization.Entities;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -12,6 +13,6 @@ namespace LibraryForOptimization.Repository
         public StationContext(): base("DefaultConnection")
         {}
 
-
+        public DbSet<Station> Stations { get; set; }
     }
 }

@@ -80,6 +80,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\Cascade.cs" />
+    <Compile Include="Entities\CharacterConsumption.cs" />
+    <Compile Include="Entities\CharacterSpecificConsumption.cs" />
+    <Compile Include="Entities\CharacterVolume.cs" />
+    <Compile Include="Entities\LimitStation.cs" />
+    <Compile Include="Entities\Station.cs" />
     <Compile Include="Repository\StationContext.cs" />
     <Compile Include="StructureDataLimitGes.cs" />
     <Compile Include="StructureСaracteristicGes.cs" />
