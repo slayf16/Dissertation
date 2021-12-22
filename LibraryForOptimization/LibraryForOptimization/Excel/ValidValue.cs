@@ -26,7 +26,7 @@ namespace LibraryForOptimization
             return restriction;
         }
 
-        public bool ValidNum(int num)
+        public static bool ValidNum(int num)
         {
             if(num>0)
             {

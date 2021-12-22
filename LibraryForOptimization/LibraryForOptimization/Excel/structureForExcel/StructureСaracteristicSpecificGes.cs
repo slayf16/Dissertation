@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LibraryForOptimization
 {
-    class StructureСaracteristicSpecificGes : StructureСaracteristicGes
+    public class StructureСaracteristicSpecificGes : StructureСaracteristicGes
     {
         /// <summary>
         /// Дополнительная зависимая переменная (только для 

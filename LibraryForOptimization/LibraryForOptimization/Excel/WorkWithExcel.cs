@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using LibraryForOptimization.Excel.structureForExcel;
 using OfficeOpenXml;
 
 
@@ -17,7 +19,7 @@ namespace LibraryForOptimization
     public class WorkWithExcel
     {
 
-
+        //+
         /// <summary>
         /// метод для формирования массива из входящих файлов 
         /// </summary>
@@ -53,7 +55,7 @@ namespace LibraryForOptimization
         }
 
         //solid: не делаю универсальные методы, потому что один метод, за один функционал 
-
+        //+
         /// <summary>
         /// 
         /// </summary>
@@ -69,9 +71,11 @@ namespace LibraryForOptimization
                     i++;
                     for (; sheet.Cells[i, 4].Value != null; i++)
                     {
+                        var a = Regex.Matches((string)sheet.Cells[i, 1].Value, @"\d{2}.\d{2}");                       
                         var obj = new StructureDataLimitGes()
-                        {
-                            Period = (sheet.Cells[i, 1].Value ?? "").ToString(),
+                        {   
+                            StartPeriod = Convert.ToDateTime(a[0].ToString()),
+                            FinishPeriod = Convert.ToDateTime(a[1].ToString()),                            
                             NameLimitation = (sheet.Cells[i, 2].Value ?? "").ToString(),
                             RestrictionType = ValidValue.ValidRestriction((sheet.Cells[i, 3].Value ?? "").ToString()),
                             NumericalValue = Convert.ToDouble(sheet.Cells[i, 4].Value)
@@ -84,20 +88,71 @@ namespace LibraryForOptimization
         }
 
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sheet"></param>
+        /// <returns></returns>
         private static List<StructureСaracteristicGes> GetListСaracter(ExcelWorksheet sheet)
         {
-            List<StructureСaracteristicGes> list = new List<StructureСaracteristicGes>();
-            for (int i = 1; i < sheet.Dimension.Rows; i++)
+            var list = new List<StructureСaracteristicGes>();
+            switch (sheet.Dimension.Columns)
             {
-                var obj = new StructureСaracteristicGes()
-                {
-                    DependentVariable = Convert.ToDouble(sheet.Cells[i, 1].Value),
-                    IndependentVariable = Convert.ToDouble(sheet.Cells[i, 2].Value)
-                };
-                list.Add(obj);
+                case 2:
+                    {
+                        list = new List<StructureСaracteristicGes>();
+                        for (int i = 1; i <= sheet.Dimension.Rows; i++)
+                        {
+                            var obj = new StructureСaracteristicGes()
+                            {
+                                DependentVariable = Convert.ToDouble(sheet.Cells[i, 1].Value),
+                                IndependentVariable = Convert.ToDouble(sheet.Cells[i, 2].Value)
+                            };
+                            list.Add(obj);
+                        }
+
+                        break;
+                    }
+
+                case 3:
+                    {
+
+                        for (int i = 1; i <= sheet.Dimension.Rows; i++)
+                        {
+                            var obj = new StructureСaracteristicSpecificGes()
+                            {
+
+                                DependentVariable = Convert.ToDouble(sheet.Cells[i, 1].Value),
+                                IndependentVariable = Convert.ToDouble(sheet.Cells[i, 2].Value),
+                                DependentVariable2 = Convert.ToDouble(sheet.Cells[i, 3].Value)
+                            };
+                            list.Add(obj);
+                        }
+
+                        break;
+                    }
+
+                case 6:
+                    {
+
+                        for (int i = 1; i <= sheet.Dimension.Rows; i++)
+                        {
+                            var obj = new StructureСaracteristicSpecificGes2()
+                            {
+                                DependentVariable = Convert.ToDouble(sheet.Cells[i + 2, 2].Value),
+                                IndependentVariable = Convert.ToDouble(sheet.Cells[i + 2, 3].Value),
+                                DependentVariable2 = Convert.ToDouble(sheet.Cells[i + 2, 4].Value),
+                                DependentVariable3 = Convert.ToDouble(sheet.Cells[i + 2, 5].Value),
+                                DependentVariable4 = Convert.ToDouble(sheet.Cells[i + 2, 6].Value)
+                            };
+                            list.Add(obj);
+                        }
+
+                        break;
+                    }
             }
             return list;
+
         }
 
         /// <summary>

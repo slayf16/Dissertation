@@ -8,10 +8,14 @@ namespace LibraryForOptimization
 {
     public class StructureDataLimitGes 
     {
-        /// <summary>
-        /// Период действия ограничения 
-        /// </summary>
-        public string Period { get; set; }
+        ///// <summary>
+        ///// Период действия ограничения 
+        ///// </summary>
+        //public string Period { get; set; }
+
+        public DateTime StartPeriod { get; set; }
+
+        public DateTime FinishPeriod { get; set; }
 
         /// <summary>
         /// Название ограничения (мощность, расход и т.д.)
@@ -28,9 +32,5 @@ namespace LibraryForOptimization
         /// </summary>
         public double NumericalValue { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        ///public string Namestation { get; set; }
     }
 }

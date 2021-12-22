@@ -86,12 +86,13 @@
     <Compile Include="Entities\CharacterVolume.cs" />
     <Compile Include="Entities\LimitStation.cs" />
     <Compile Include="Entities\Station.cs" />
+    <Compile Include="Excel\structureForExcel\StructureСaracteristicSpecificGes2.cs" />
     <Compile Include="Repository\StationContext.cs" />
-    <Compile Include="StructureDataLimitGes.cs" />
-    <Compile Include="StructureСaracteristicGes.cs" />
-    <Compile Include="StructureСaracteristicSpecificGes.cs" />
-    <Compile Include="ValidValue.cs" />
-    <Compile Include="WorkWithExcel.cs" />
+    <Compile Include="Excel\structureForExcel\StructureDataLimitGes.cs" />
+    <Compile Include="Excel\structureForExcel\StructureСaracteristicGes.cs" />
+    <Compile Include="Excel\structureForExcel\StructureСaracteristicSpecificGes.cs" />
+    <Compile Include="Excel\ValidValue.cs" />
+    <Compile Include="Excel\WorkWithExcel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -20,6 +20,7 @@ namespace LibraryForOptimization.Entities
         [Column("id_Каскад")]
         public int? CascadeId { get; set; }
 
+        //TODO: разрешить NULL
         public Cascade Cascade { get; set; }
 
         public LimitStation LimitStation { get; set; }
