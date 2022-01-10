@@ -132,18 +132,25 @@ namespace LibraryForOptimization
                         break;
                     }
 
-                case 6:
+                case 5:
+                
                     {
 
                         for (int i = 1; i <= sheet.Dimension.Rows; i++)
                         {
                             var obj = new StructureСaracteristicSpecificGes2()
                             {
-                                DependentVariable = Convert.ToDouble(sheet.Cells[i + 2, 2].Value),
-                                IndependentVariable = Convert.ToDouble(sheet.Cells[i + 2, 3].Value),
-                                DependentVariable2 = Convert.ToDouble(sheet.Cells[i + 2, 4].Value),
-                                DependentVariable3 = Convert.ToDouble(sheet.Cells[i + 2, 5].Value),
-                                DependentVariable4 = Convert.ToDouble(sheet.Cells[i + 2, 6].Value)
+                                DependentVariable = Convert.ToDouble(sheet.Cells[i, 1].Value),
+                                IndependentVariable = Convert.ToDouble(sheet.Cells[i,2].Value),
+                                DependentVariable2 = Convert.ToDouble(sheet.Cells[i, 3].Value),
+                                DependentVariable3 = Convert.ToDouble(sheet.Cells[i, 4].Value),
+                                DependentVariable4 = Convert.ToDouble(sheet.Cells[i, 5].Value)
+
+                                //DependentVariable = Convert.ToDouble(sheet.Cells[i + 2, 2].Value),
+                                //IndependentVariable = Convert.ToDouble(sheet.Cells[i + 2, 3].Value),
+                                //DependentVariable2 = Convert.ToDouble(sheet.Cells[i + 2, 4].Value),
+                                //DependentVariable3 = Convert.ToDouble(sheet.Cells[i + 2, 5].Value),
+                                //DependentVariable4 = Convert.ToDouble(sheet.Cells[i + 2, 6].Value)
                             };
                             list.Add(obj);
                         }

@@ -21,8 +21,6 @@ namespace LibraryForOptimization.Excel.structureForExcel
         /// Дополнительная зависимая переменная (только для 
         /// характеристики удельного расхода), в остальных случаях NULL
         /// </summary>
-        public double DependentVariable4 { get; set; }
-
-        
+        public double DependentVariable4 { get; set; }                
     }
 }
