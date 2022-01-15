@@ -85,6 +85,7 @@ namespace TestOPt2
             }
         }
 
+        //  значение аргумента 
         private double NextDoubleInRange(double min, double max)
         {
             return random.NextDouble() * (max - min) + min;
