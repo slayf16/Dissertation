@@ -114,7 +114,7 @@ namespace LibraryForOptimization.ObjectiveFunction
 
             //ОБРАБОТКА ИНТЕРВАЛА 
 
-            const int t = 2678400; // секунд в месяце
+            const double t = 2678400; // секунд в месяце
 
             //РАСЧЕТ ПРИРАЩЕНИЯ ОБЪЕМА
             double dVSh = PrirostObyom(t, 0, 0, vars, pritokSHges, 0);
@@ -210,11 +210,76 @@ namespace LibraryForOptimization.ObjectiveFunction
                 (q1K1.DependentVariable2 - q2K2.DependentVariable2) / (q1K1.DependentVariable - q2K2.DependentVariable);
 
             // расчет средней мощности и расчет выработки электроэнергии
+
             var Psh = vars[0] / qudSH;
             var Pm = vars[1] / qudM;
             var Pk = vars[2] / qudK;
-            var E = (Psh+Pm+Pk) * t / (3600 * 1000);
+            
+            const double time = t / (3600 * 1000);
+
+            double Esh;
+            double Em;
+            double Ek;
+
+
+            //TODO: условия вводится вручную 
+            Esh = getEnergy(Psh, 5250.0, time);
+            Esh = getCorrectEnergy(Esh, 500, 540, Zvb_srSH);
+
+            Em = getEnergy(Pm, 321, time);
+            Em = getCorrectEnergy(Em, 319, 326.5, Zvb_srM);
+
+            Ek = getEnergy(Pk, 6000, time);
+            Ek = getCorrectEnergy(Ek, 225, 244.5, Zvb_srK);
+
+            var E = Esh + Em + Ek;
             return E;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="P"></param>
+        /// <param name="limit"></param>
+        /// <param name="time"></param>
+        /// <returns></returns>
+        private double getEnergy(double P, double limit, double time)
+        {
+            double energy;
+            if (P > limit)
+            {
+                energy = (limit - (P - limit) * 5) * time;
+            }
+            else
+            {
+                energy = P * time;
+            }
+            return energy;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="energy"></param>
+        /// <param name="limitLeft"></param>
+        /// <param name="limitRight"></param>
+        /// <param name="levelUpperBief"></param>
+        /// <returns></returns>
+        private double getCorrectEnergy(double energy, double limitLeft, double limitRight, double upperBiefLevel)
+        {
+            var result = energy;
+
+            if (upperBiefLevel >= limitRight)
+            {
+                result -= (upperBiefLevel - limitRight) * (upperBiefLevel - limitRight) * (int)1e4;
+            }
+
+            if (upperBiefLevel <= limitLeft)
+            {
+                result -= (-upperBiefLevel + limitLeft) * (-upperBiefLevel + limitLeft) * (int)1e4;
+            }
+
+            return result;
         }
 
 
@@ -414,6 +479,7 @@ namespace LibraryForOptimization.ObjectiveFunction
             var Z2 = mass[indexQ2].DependentVariable;
             var Q1 = mass[indexQ1].IndependentVariable;
             var Q2 = mass[indexQ2].IndependentVariable;
+            
             var Znb = Z1 - (Q1 - Qnb[gesNumber]) *
                 (Z1 - Z2) / (Q1 - Q2);
             return Znb;

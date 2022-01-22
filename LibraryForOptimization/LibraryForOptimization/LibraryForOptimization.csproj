@@ -86,6 +86,8 @@
     <Compile Include="Entities\CharacterVolume.cs" />
     <Compile Include="Entities\LimitStation.cs" />
     <Compile Include="Entities\Station.cs" />
+    <Compile Include="Excel\structureForExcel\StationInfo.cs" />
+    <Compile Include="Excel\structureForExcel\StationLimitModel.cs" />
     <Compile Include="Excel\structureForExcel\StructureСaracteristicSpecificGes2.cs" />
     <Compile Include="ObjectiveFunction\FunctionEnergy.cs" />
     <Compile Include="Repository\StationContext.cs" />

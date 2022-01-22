@@ -18,6 +18,13 @@ namespace Test
             string way222 = "C:/Users/AMK29/Desktop/Файлы тесты для диплома/Новая папка/wz";
             string way225 = "C:/Users/AMK29/Desktop/Файлы тесты для диплома/Новая папка/расход";
             string way333 = "C:/Users/AMK29/Desktop/Файлы тесты для диплома/Новая папка/уд";
+            var way101010 = "C:/Users/AMK29/Desktop/Файлы тесты для диплома";
+
+            List<string[]> path = new List<string[]>();
+
+            path.Add(Directory.GetFiles(way101010));
+            var ad = WorkWithExcel.InputStructLimit(path[0][1]);
+      
 
             var ff = new FunctionEnergy(way222, way225, way333);
 

@@ -24,14 +24,14 @@ namespace LibraryForOptimization
         /// метод для формирования массива из входящих файлов 
         /// </summary>
         /// <param name="path">путь до файла, который считываем</param>
-        public static List<StructureDataLimitGes> InputStructLimit(string path)
+        public static List<StationInfo> InputStructLimit(string path)
         {
-            var datas = new List<StructureDataLimitGes>();
+           
             using (ExcelPackage package = new ExcelPackage(new FileInfo(path)))
             {
                 ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
                 var sheet = package.Workbook.Worksheets["Лист1"];
-                datas = GetListLimitGes(sheet);
+                var datas = GetListLimitGes(sheet);
                 return datas;
             }
         }
@@ -61,13 +61,18 @@ namespace LibraryForOptimization
         /// </summary>
         /// <param name="sheet"></param>
         /// <returns></returns>
-        private static List<StructureDataLimitGes> GetListLimitGes(ExcelWorksheet sheet)
+        private static List<StationInfo> GetListLimitGes(ExcelWorksheet sheet)
         {
-            List<StructureDataLimitGes> list = new List<StructureDataLimitGes>();
+
+            List<StationInfo> list = new List<StationInfo>();
             for (int i = 1; i<sheet.Dimension.Rows; i++)
             {
                 if ((string)sheet.Cells[i, 4].Value == "Значение")
                 {
+
+                    var stationInfo = new StationInfo();
+                    stationInfo.Limits = new List<StructureDataLimitGes>();
+                    stationInfo.Name = sheet.Cells[i - 1, 1].Value.ToString();
                     i++;
                     for (; sheet.Cells[i, 4].Value != null; i++)
                     {
@@ -78,10 +83,11 @@ namespace LibraryForOptimization
                             FinishPeriod = Convert.ToDateTime(a[1].ToString()),                            
                             NameLimitation = (sheet.Cells[i, 2].Value ?? "").ToString(),
                             RestrictionType = ValidValue.ValidRestriction((sheet.Cells[i, 3].Value ?? "").ToString()),
-                            NumericalValue = Convert.ToDouble(sheet.Cells[i, 4].Value)
+                            NumericalValue = Convert.ToDouble(sheet.Cells[i, 4].Value.ToString().Replace(".", ","))
                         };
-                        list.Add(obj);
+                        stationInfo.Limits.Add(obj);
                     }
+                    list.Add(stationInfo);
                 }                            
             }
             return list;

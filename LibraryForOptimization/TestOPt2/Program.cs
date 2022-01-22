@@ -18,21 +18,25 @@ namespace TestOPt2
             var ff = new FunctionEnergy(way222, way225, way333);
 
             ff.Init(520.0, 324.0, 244.0);
-            var pizda = new List<double>() { 2100, 2109, 2230 };
-            var xer = ff.Calculate(pizda);
 
-            var lowerBound = new double[] { 1000,1000,1000 };
-            var upperBound = new double[] { 10000, 10000, 10000 };
-            var swarm = new ParticleSwarm(1000, lowerBound, upperBound, p =>
+            var startPosition = new double[] { 2100, 2109, 2230 };
+
+            /// задавать в интерфейсе
+            var lowerBound = new double[] { 0,700,1740 };
+            var upperBound = new double[] { 12000, 13000, 19000 };
+            var swarm = new ParticleSwarm(50, lowerBound, upperBound, startPosition,  p =>
             {
                 var pList = new List<double>(p);
                 return ff.Calculate(pList);
             });
-
-            swarm.Step(2000, i => {
+            var max = 0.0;
+            swarm.Step(1000, i => {
                 Console.WriteLine($"{i}; {swarm.BestFitness}; {swarm.BestPosition[0]}");
+                //max = Math.Max(max, swarm.BestFitness);
+
                 return Console.KeyAvailable;
             });
+            //Console.WriteLine(max);
             Console.ReadKey();
         }
     }
