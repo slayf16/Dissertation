@@ -66,7 +66,22 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="Properties\DataSources\LibraryForOptimization.Entities.Cascade.datasource" />
+    <None Include="Properties\DataSources\LibraryForOptimization.Entities.CharacterConsumption.datasource" />
+    <None Include="Properties\DataSources\LibraryForOptimization.Entities.CharacterSpecificConsumption.datasource" />
+    <None Include="Properties\DataSources\LibraryForOptimization.Entities.CharacterVolume.datasource" />
+    <None Include="Properties\DataSources\LibraryForOptimization.Entities.LimitStation.datasource" />
+    <None Include="Properties\DataSources\LibraryForOptimization.Entities.Station.datasource" />
+    <None Include="Properties\DataSources\LibraryForOptimization.Excel.structureForExcel.StationInfo.datasource" />
     <None Include="Properties\DataSources\LibraryForOptimization.Excel.structureForExcel.StationLimitModel.datasource" />
+    <None Include="Properties\DataSources\LibraryForOptimization.Excel.structureForExcel.StructureСaracteristicSpecificGes2.datasource" />
+    <None Include="Properties\DataSources\LibraryForOptimization.ObjectiveFunction.FunctionEnergy.datasource" />
+    <None Include="Properties\DataSources\LibraryForOptimization.Repository.StationContext.datasource" />
+    <None Include="Properties\DataSources\LibraryForOptimization.StructureDataLimitGes.datasource" />
+    <None Include="Properties\DataSources\LibraryForOptimization.StructureСaracteristicGes.datasource" />
+    <None Include="Properties\DataSources\LibraryForOptimization.StructureСaracteristicSpecificGes.datasource" />
+    <None Include="Properties\DataSources\LibraryForOptimization.ValidValue.datasource" />
+    <None Include="Properties\DataSources\LibraryForOptimization.WorkWithExcel.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

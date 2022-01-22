@@ -1,5 +1,6 @@
 ﻿using LibraryForOptimization;
 using LibraryForOptimization.Excel.structureForExcel;
+using LibraryForOptimization.ObjectiveFunction;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,6 +15,9 @@ namespace Dissertation_GUI
 {
     public partial class Form1 : Form
     {
+
+      //  BindingList<InitialData> initialDatas = new BindingList<InitialData>();
+
         public Form1()
         {
             InitializeComponent();

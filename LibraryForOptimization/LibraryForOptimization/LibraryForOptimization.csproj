@@ -90,6 +90,7 @@
     <Compile Include="Excel\structureForExcel\StationLimitModel.cs" />
     <Compile Include="Excel\structureForExcel\StructureСaracteristicSpecificGes2.cs" />
     <Compile Include="ObjectiveFunction\FunctionEnergy.cs" />
+    <Compile Include="ObjectiveFunction\InitialData.cs" />
     <Compile Include="Repository\StationContext.cs" />
     <Compile Include="Excel\structureForExcel\StructureDataLimitGes.cs" />
     <Compile Include="Excel\structureForExcel\StructureСaracteristicGes.cs" />

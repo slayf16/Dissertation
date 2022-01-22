@@ -30,9 +30,15 @@
         {
             this.components = new System.ComponentModel.Container();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
+            this.gesNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.periodStartDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.periodFinishDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.limitNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.limitTypeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.limitValueDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.stationLimitModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -47,20 +53,16 @@
             this.ограниченияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.характеристикиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.stationLimitModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.gesNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.periodStartDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.periodFinishDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.limitNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.limitTypeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.limitValueDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.stationContextBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.stationLimitModelBindingSource)).BeginInit();
             this.groupBox3.SuspendLayout();
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.stationLimitModelBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.stationContextBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -72,17 +74,6 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Исходные параметры ГЭС";
-            // 
-            // dataGridView1
-            // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(3, 18);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersWidth = 51;
-            this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(534, 177);
-            this.dataGridView1.TabIndex = 2;
             // 
             // groupBox2
             // 
@@ -113,6 +104,58 @@
             this.dataGridView2.RowTemplate.Height = 24;
             this.dataGridView2.Size = new System.Drawing.Size(801, 203);
             this.dataGridView2.TabIndex = 3;
+            // 
+            // gesNameDataGridViewTextBoxColumn
+            // 
+            this.gesNameDataGridViewTextBoxColumn.DataPropertyName = "GesName";
+            this.gesNameDataGridViewTextBoxColumn.HeaderText = "ГЭС";
+            this.gesNameDataGridViewTextBoxColumn.MinimumWidth = 6;
+            this.gesNameDataGridViewTextBoxColumn.Name = "gesNameDataGridViewTextBoxColumn";
+            this.gesNameDataGridViewTextBoxColumn.Width = 125;
+            // 
+            // periodStartDataGridViewTextBoxColumn
+            // 
+            this.periodStartDataGridViewTextBoxColumn.DataPropertyName = "PeriodStart";
+            this.periodStartDataGridViewTextBoxColumn.HeaderText = "Начало периода";
+            this.periodStartDataGridViewTextBoxColumn.MinimumWidth = 6;
+            this.periodStartDataGridViewTextBoxColumn.Name = "periodStartDataGridViewTextBoxColumn";
+            this.periodStartDataGridViewTextBoxColumn.Width = 125;
+            // 
+            // periodFinishDataGridViewTextBoxColumn
+            // 
+            this.periodFinishDataGridViewTextBoxColumn.DataPropertyName = "PeriodFinish";
+            this.periodFinishDataGridViewTextBoxColumn.HeaderText = "Конец периода";
+            this.periodFinishDataGridViewTextBoxColumn.MinimumWidth = 6;
+            this.periodFinishDataGridViewTextBoxColumn.Name = "periodFinishDataGridViewTextBoxColumn";
+            this.periodFinishDataGridViewTextBoxColumn.Width = 125;
+            // 
+            // limitNameDataGridViewTextBoxColumn
+            // 
+            this.limitNameDataGridViewTextBoxColumn.DataPropertyName = "LimitName";
+            this.limitNameDataGridViewTextBoxColumn.HeaderText = "Ограничение";
+            this.limitNameDataGridViewTextBoxColumn.MinimumWidth = 6;
+            this.limitNameDataGridViewTextBoxColumn.Name = "limitNameDataGridViewTextBoxColumn";
+            this.limitNameDataGridViewTextBoxColumn.Width = 125;
+            // 
+            // limitTypeDataGridViewTextBoxColumn
+            // 
+            this.limitTypeDataGridViewTextBoxColumn.DataPropertyName = "LimitType";
+            this.limitTypeDataGridViewTextBoxColumn.HeaderText = "Тип ограничения";
+            this.limitTypeDataGridViewTextBoxColumn.MinimumWidth = 6;
+            this.limitTypeDataGridViewTextBoxColumn.Name = "limitTypeDataGridViewTextBoxColumn";
+            this.limitTypeDataGridViewTextBoxColumn.Width = 125;
+            // 
+            // limitValueDataGridViewTextBoxColumn
+            // 
+            this.limitValueDataGridViewTextBoxColumn.DataPropertyName = "LimitValue";
+            this.limitValueDataGridViewTextBoxColumn.HeaderText = "Значение";
+            this.limitValueDataGridViewTextBoxColumn.MinimumWidth = 6;
+            this.limitValueDataGridViewTextBoxColumn.Name = "limitValueDataGridViewTextBoxColumn";
+            this.limitValueDataGridViewTextBoxColumn.Width = 125;
+            // 
+            // stationLimitModelBindingSource
+            // 
+            this.stationLimitModelBindingSource.DataSource = typeof(LibraryForOptimization.Excel.structureForExcel.StationLimitModel);
             // 
             // groupBox3
             // 
@@ -200,7 +243,7 @@
             this.файлToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(989, 30);
+            this.menuStrip1.Size = new System.Drawing.Size(989, 28);
             this.menuStrip1.TabIndex = 5;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -238,57 +281,19 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
-            // stationLimitModelBindingSource
+            // stationContextBindingSource
             // 
-            this.stationLimitModelBindingSource.DataSource = typeof(LibraryForOptimization.Excel.structureForExcel.StationLimitModel);
+            this.stationContextBindingSource.DataSource = typeof(LibraryForOptimization.Repository.StationContext);
             // 
-            // gesNameDataGridViewTextBoxColumn
+            // dataGridView1
             // 
-            this.gesNameDataGridViewTextBoxColumn.DataPropertyName = "GesName";
-            this.gesNameDataGridViewTextBoxColumn.HeaderText = "ГЭС";
-            this.gesNameDataGridViewTextBoxColumn.MinimumWidth = 6;
-            this.gesNameDataGridViewTextBoxColumn.Name = "gesNameDataGridViewTextBoxColumn";
-            this.gesNameDataGridViewTextBoxColumn.Width = 125;
-            // 
-            // periodStartDataGridViewTextBoxColumn
-            // 
-            this.periodStartDataGridViewTextBoxColumn.DataPropertyName = "PeriodStart";
-            this.periodStartDataGridViewTextBoxColumn.HeaderText = "Начало периода";
-            this.periodStartDataGridViewTextBoxColumn.MinimumWidth = 6;
-            this.periodStartDataGridViewTextBoxColumn.Name = "periodStartDataGridViewTextBoxColumn";
-            this.periodStartDataGridViewTextBoxColumn.Width = 125;
-            // 
-            // periodFinishDataGridViewTextBoxColumn
-            // 
-            this.periodFinishDataGridViewTextBoxColumn.DataPropertyName = "PeriodFinish";
-            this.periodFinishDataGridViewTextBoxColumn.HeaderText = "Конец периода";
-            this.periodFinishDataGridViewTextBoxColumn.MinimumWidth = 6;
-            this.periodFinishDataGridViewTextBoxColumn.Name = "periodFinishDataGridViewTextBoxColumn";
-            this.periodFinishDataGridViewTextBoxColumn.Width = 125;
-            // 
-            // limitNameDataGridViewTextBoxColumn
-            // 
-            this.limitNameDataGridViewTextBoxColumn.DataPropertyName = "LimitName";
-            this.limitNameDataGridViewTextBoxColumn.HeaderText = "Ограничение";
-            this.limitNameDataGridViewTextBoxColumn.MinimumWidth = 6;
-            this.limitNameDataGridViewTextBoxColumn.Name = "limitNameDataGridViewTextBoxColumn";
-            this.limitNameDataGridViewTextBoxColumn.Width = 125;
-            // 
-            // limitTypeDataGridViewTextBoxColumn
-            // 
-            this.limitTypeDataGridViewTextBoxColumn.DataPropertyName = "LimitType";
-            this.limitTypeDataGridViewTextBoxColumn.HeaderText = "Тип ограничения";
-            this.limitTypeDataGridViewTextBoxColumn.MinimumWidth = 6;
-            this.limitTypeDataGridViewTextBoxColumn.Name = "limitTypeDataGridViewTextBoxColumn";
-            this.limitTypeDataGridViewTextBoxColumn.Width = 125;
-            // 
-            // limitValueDataGridViewTextBoxColumn
-            // 
-            this.limitValueDataGridViewTextBoxColumn.DataPropertyName = "LimitValue";
-            this.limitValueDataGridViewTextBoxColumn.HeaderText = "Значение";
-            this.limitValueDataGridViewTextBoxColumn.MinimumWidth = 6;
-            this.limitValueDataGridViewTextBoxColumn.Name = "limitValueDataGridViewTextBoxColumn";
-            this.limitValueDataGridViewTextBoxColumn.Width = 125;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView1.Location = new System.Drawing.Point(3, 18);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowHeadersWidth = 51;
+            this.dataGridView1.Size = new System.Drawing.Size(534, 177);
+            this.dataGridView1.TabIndex = 0;
             // 
             // Form1
             // 
@@ -304,14 +309,15 @@
             this.Name = "Form1";
             this.Text = "Form1";
             this.groupBox1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.stationLimitModelBindingSource)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.stationLimitModelBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.stationContextBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -320,7 +326,6 @@
         #endregion
 
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.DataGridView dataGridView2;
         private System.Windows.Forms.GroupBox groupBox3;
@@ -344,6 +349,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn limitNameDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn limitTypeDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn limitValueDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.BindingSource stationContextBindingSource;
     }
 }
 
