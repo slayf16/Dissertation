@@ -1,6 +1,6 @@
 ﻿namespace Dissertation_GUI
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         /// Обязательная переменная конструктора.
@@ -30,6 +30,12 @@
         {
             this.components = new System.ComponentModel.Container();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.gesNameDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.waterConsumptionNBDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.levelVBDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.gesIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.initialDataBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.gesNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -52,17 +58,21 @@
             this.загрузитьИзExcelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ограниченияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.характеристикиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.расчетToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.stationContextBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.добавитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.удалитьВыделеннуюСтрокуToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.initialDataBindingSource)).BeginInit();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.stationLimitModelBindingSource)).BeginInit();
             this.groupBox3.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.stationContextBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -74,6 +84,61 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Исходные параметры ГЭС";
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AutoGenerateColumns = false;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.gesNameDataGridViewTextBoxColumn1,
+            this.waterConsumptionNBDataGridViewTextBoxColumn,
+            this.levelVBDataGridViewTextBoxColumn,
+            this.gesIdDataGridViewTextBoxColumn});
+            this.dataGridView1.DataSource = this.initialDataBindingSource;
+            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView1.Location = new System.Drawing.Point(3, 18);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowHeadersWidth = 51;
+            this.dataGridView1.Size = new System.Drawing.Size(534, 177);
+            this.dataGridView1.TabIndex = 0;
+            this.dataGridView1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.dataGridView1_MouseUp);
+            // 
+            // gesNameDataGridViewTextBoxColumn1
+            // 
+            this.gesNameDataGridViewTextBoxColumn1.DataPropertyName = "GesName";
+            this.gesNameDataGridViewTextBoxColumn1.HeaderText = "ГЭС";
+            this.gesNameDataGridViewTextBoxColumn1.MinimumWidth = 6;
+            this.gesNameDataGridViewTextBoxColumn1.Name = "gesNameDataGridViewTextBoxColumn1";
+            this.gesNameDataGridViewTextBoxColumn1.Width = 125;
+            // 
+            // waterConsumptionNBDataGridViewTextBoxColumn
+            // 
+            this.waterConsumptionNBDataGridViewTextBoxColumn.DataPropertyName = "WaterConsumptionNB";
+            this.waterConsumptionNBDataGridViewTextBoxColumn.HeaderText = "Расход в НБ";
+            this.waterConsumptionNBDataGridViewTextBoxColumn.MinimumWidth = 6;
+            this.waterConsumptionNBDataGridViewTextBoxColumn.Name = "waterConsumptionNBDataGridViewTextBoxColumn";
+            this.waterConsumptionNBDataGridViewTextBoxColumn.Width = 125;
+            // 
+            // levelVBDataGridViewTextBoxColumn
+            // 
+            this.levelVBDataGridViewTextBoxColumn.DataPropertyName = "LevelVB";
+            this.levelVBDataGridViewTextBoxColumn.HeaderText = "Уровень воды в ВБ ";
+            this.levelVBDataGridViewTextBoxColumn.MinimumWidth = 6;
+            this.levelVBDataGridViewTextBoxColumn.Name = "levelVBDataGridViewTextBoxColumn";
+            this.levelVBDataGridViewTextBoxColumn.Width = 125;
+            // 
+            // gesIdDataGridViewTextBoxColumn
+            // 
+            this.gesIdDataGridViewTextBoxColumn.DataPropertyName = "GesId";
+            this.gesIdDataGridViewTextBoxColumn.HeaderText = "Номер ГЭС в каскаде";
+            this.gesIdDataGridViewTextBoxColumn.MinimumWidth = 6;
+            this.gesIdDataGridViewTextBoxColumn.Name = "gesIdDataGridViewTextBoxColumn";
+            this.gesIdDataGridViewTextBoxColumn.Width = 125;
+            // 
+            // initialDataBindingSource
+            // 
+            this.initialDataBindingSource.DataSource = typeof(LibraryForOptimization.ObjectiveFunction.InitialData);
             // 
             // groupBox2
             // 
@@ -87,6 +152,7 @@
             // 
             // dataGridView2
             // 
+            this.dataGridView2.AllowUserToAddRows = false;
             this.dataGridView2.AutoGenerateColumns = false;
             this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -104,6 +170,7 @@
             this.dataGridView2.RowTemplate.Height = 24;
             this.dataGridView2.Size = new System.Drawing.Size(801, 203);
             this.dataGridView2.TabIndex = 3;
+            this.dataGridView2.MouseUp += new System.Windows.Forms.MouseEventHandler(this.dataGridView2_MouseUp);
             // 
             // gesNameDataGridViewTextBoxColumn
             // 
@@ -240,7 +307,8 @@
             // 
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.файлToolStripMenuItem});
+            this.файлToolStripMenuItem,
+            this.расчетToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(989, 28);
@@ -276,26 +344,42 @@
             this.характеристикиToolStripMenuItem.Name = "характеристикиToolStripMenuItem";
             this.характеристикиToolStripMenuItem.Size = new System.Drawing.Size(203, 26);
             this.характеристикиToolStripMenuItem.Text = "Характеристики";
+            this.характеристикиToolStripMenuItem.Click += new System.EventHandler(this.характеристикиToolStripMenuItem_Click);
             // 
-            // openFileDialog1
+            // расчетToolStripMenuItem
             // 
-            this.openFileDialog1.FileName = "openFileDialog1";
+            this.расчетToolStripMenuItem.Name = "расчетToolStripMenuItem";
+            this.расчетToolStripMenuItem.Size = new System.Drawing.Size(68, 24);
+            this.расчетToolStripMenuItem.Text = "Расчет";
+            this.расчетToolStripMenuItem.Click += new System.EventHandler(this.расчетToolStripMenuItem_Click);
             // 
             // stationContextBindingSource
             // 
             this.stationContextBindingSource.DataSource = typeof(LibraryForOptimization.Repository.StationContext);
             // 
-            // dataGridView1
+            // contextMenuStrip1
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(3, 18);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersWidth = 51;
-            this.dataGridView1.Size = new System.Drawing.Size(534, 177);
-            this.dataGridView1.TabIndex = 0;
+            this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.добавитьToolStripMenuItem,
+            this.удалитьВыделеннуюСтрокуToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(276, 52);
             // 
-            // Form1
+            // добавитьToolStripMenuItem
+            // 
+            this.добавитьToolStripMenuItem.Name = "добавитьToolStripMenuItem";
+            this.добавитьToolStripMenuItem.Size = new System.Drawing.Size(275, 24);
+            this.добавитьToolStripMenuItem.Text = "Добавить";
+            this.добавитьToolStripMenuItem.Click += new System.EventHandler(this.AddToolStripMenuItem_Click);
+            // 
+            // удалитьВыделеннуюСтрокуToolStripMenuItem
+            // 
+            this.удалитьВыделеннуюСтрокуToolStripMenuItem.Name = "удалитьВыделеннуюСтрокуToolStripMenuItem";
+            this.удалитьВыделеннуюСтрокуToolStripMenuItem.Size = new System.Drawing.Size(275, 24);
+            this.удалитьВыделеннуюСтрокуToolStripMenuItem.Text = "Удалить выделенную строку";
+            // 
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -306,9 +390,11 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "Form1";
+            this.Name = "MainForm";
             this.Text = "Form1";
             this.groupBox1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.initialDataBindingSource)).EndInit();
             this.groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.stationLimitModelBindingSource)).EndInit();
@@ -317,7 +403,7 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.stationContextBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -341,7 +427,6 @@
         private System.Windows.Forms.ToolStripMenuItem загрузитьИзExcelToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ограниченияToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem характеристикиToolStripMenuItem;
-        private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.BindingSource stationLimitModelBindingSource;
         private System.Windows.Forms.DataGridViewTextBoxColumn gesNameDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn periodStartDataGridViewTextBoxColumn;
@@ -351,6 +436,15 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn limitValueDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.BindingSource stationContextBindingSource;
+        private System.Windows.Forms.DataGridViewTextBoxColumn gesNameDataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn waterConsumptionNBDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn levelVBDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn gesIdDataGridViewTextBoxColumn;
+        private System.Windows.Forms.BindingSource initialDataBindingSource;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem добавитьToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem удалитьВыделеннуюСтрокуToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem расчетToolStripMenuItem;
     }
 }
 

@@ -42,15 +42,16 @@ namespace LibraryForOptimization.ObjectiveFunction
         private List<StructureСaracteristicGes> kgesUd;
         private List<StructureСaracteristicGes> mgesUd;
         private List<StructureСaracteristicGes> shgesUd;
-        public FunctionEnergy(string way222, string way225, string way333)
+        //public FunctionEnergy(string way222, string way225, string way333)
+        public FunctionEnergy(List<string[]> path)
         {
 
 
-            List<string[]> path = new List<string[]>();
+            //List<string[]> path = new List<string[]>();
 
-            path.Add(Directory.GetFiles(way222));
-            path.Add(Directory.GetFiles(way225));
-            path.Add(Directory.GetFiles(way333));
+            //path.Add(Directory.GetFiles(way222));
+            //path.Add(Directory.GetFiles(way225));
+            //path.Add(Directory.GetFiles(way333));
 
             kgesWZ = WorkWithExcel.InputStructCharacter(path[0][0]);
             mgesWZ = WorkWithExcel.InputStructCharacter(path[0][1]);

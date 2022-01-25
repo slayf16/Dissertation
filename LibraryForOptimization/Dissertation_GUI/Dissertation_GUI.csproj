@@ -46,16 +46,52 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="AddFormInitData.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="AddFormInitData.Designer.cs">
+      <DependentUpon>AddFormInitData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddFormLimitData.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddFormLimitData.Designer.cs">
+      <DependentUpon>AddFormLimitData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AnswerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AnswerForm.Designer.cs">
+      <DependentUpon>AnswerForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PogressBarForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PogressBarForm.Designer.cs">
+      <DependentUpon>PogressBarForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="AddFormInitData.resx">
+      <DependentUpon>AddFormInitData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddFormLimitData.resx">
+      <DependentUpon>AddFormLimitData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AnswerForm.resx">
+      <DependentUpon>AnswerForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PogressBarForm.resx">
+      <DependentUpon>PogressBarForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -76,6 +112,7 @@
     <None Include="Properties\DataSources\LibraryForOptimization.Excel.structureForExcel.StationLimitModel.datasource" />
     <None Include="Properties\DataSources\LibraryForOptimization.Excel.structureForExcel.StructureСaracteristicSpecificGes2.datasource" />
     <None Include="Properties\DataSources\LibraryForOptimization.ObjectiveFunction.FunctionEnergy.datasource" />
+    <None Include="Properties\DataSources\LibraryForOptimization.ObjectiveFunction.InitialData.datasource" />
     <None Include="Properties\DataSources\LibraryForOptimization.Repository.StationContext.datasource" />
     <None Include="Properties\DataSources\LibraryForOptimization.StructureDataLimitGes.datasource" />
     <None Include="Properties\DataSources\LibraryForOptimization.StructureСaracteristicGes.datasource" />
@@ -99,6 +136,10 @@
     <ProjectReference Include="..\LibraryForOptimization\LibraryForOptimization.csproj">
       <Project>{D05C5001-8518-4E12-A316-D18DC7D0069F}</Project>
       <Name>LibraryForOptimization</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TestOPt2\PSO.csproj">
+      <Project>{6796407A-4221-4BA2-A65D-FB16BCF22494}</Project>
+      <Name>PSO</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
