@@ -108,6 +108,7 @@
     <None Include="Properties\DataSources\LibraryForOptimization.Entities.CharacterVolume.datasource" />
     <None Include="Properties\DataSources\LibraryForOptimization.Entities.LimitStation.datasource" />
     <None Include="Properties\DataSources\LibraryForOptimization.Entities.Station.datasource" />
+    <None Include="Properties\DataSources\LibraryForOptimization.Excel.structureForExcel.AnswerStructure.datasource" />
     <None Include="Properties\DataSources\LibraryForOptimization.Excel.structureForExcel.StationInfo.datasource" />
     <None Include="Properties\DataSources\LibraryForOptimization.Excel.structureForExcel.StationLimitModel.datasource" />
     <None Include="Properties\DataSources\LibraryForOptimization.Excel.structureForExcel.StructureСaracteristicSpecificGes2.datasource" />

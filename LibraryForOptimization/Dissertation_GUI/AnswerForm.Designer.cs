@@ -28,13 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.answerStructureBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.functionValueDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.iterationDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.answerStructureBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -70,7 +75,12 @@
             // 
             // dataGridView1
             // 
+            this.dataGridView1.AutoGenerateColumns = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.functionValueDataGridViewTextBoxColumn,
+            this.iterationDataGridViewTextBoxColumn});
+            this.dataGridView1.DataSource = this.answerStructureBindingSource;
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.Location = new System.Drawing.Point(3, 3);
             this.dataGridView1.Name = "dataGridView1";
@@ -78,6 +88,26 @@
             this.dataGridView1.RowTemplate.Height = 24;
             this.dataGridView1.Size = new System.Drawing.Size(738, 391);
             this.dataGridView1.TabIndex = 0;
+            // 
+            // answerStructureBindingSource
+            // 
+            this.answerStructureBindingSource.DataSource = typeof(LibraryForOptimization.Excel.structureForExcel.AnswerStructure);
+            // 
+            // functionValueDataGridViewTextBoxColumn
+            // 
+            this.functionValueDataGridViewTextBoxColumn.DataPropertyName = "FunctionValue";
+            this.functionValueDataGridViewTextBoxColumn.HeaderText = "FunctionValue";
+            this.functionValueDataGridViewTextBoxColumn.MinimumWidth = 6;
+            this.functionValueDataGridViewTextBoxColumn.Name = "functionValueDataGridViewTextBoxColumn";
+            this.functionValueDataGridViewTextBoxColumn.Width = 125;
+            // 
+            // iterationDataGridViewTextBoxColumn
+            // 
+            this.iterationDataGridViewTextBoxColumn.DataPropertyName = "Iteration";
+            this.iterationDataGridViewTextBoxColumn.HeaderText = "Iteration";
+            this.iterationDataGridViewTextBoxColumn.MinimumWidth = 6;
+            this.iterationDataGridViewTextBoxColumn.Name = "iterationDataGridViewTextBoxColumn";
+            this.iterationDataGridViewTextBoxColumn.Width = 125;
             // 
             // AnswerForm
             // 
@@ -90,6 +120,7 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.answerStructureBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -100,5 +131,8 @@
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn functionValueDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn iterationDataGridViewTextBoxColumn;
+        private System.Windows.Forms.BindingSource answerStructureBindingSource;
     }
 }
