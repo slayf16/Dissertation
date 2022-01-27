@@ -97,7 +97,7 @@
     <Compile Include="Excel\structureForExcel\StructureСaracteristicGes.cs" />
     <Compile Include="Excel\structureForExcel\StructureСaracteristicSpecificGes.cs" />
     <Compile Include="Excel\ValidValue.cs" />
-    <Compile Include="Excel\WorkWithExcel.cs" />
+    <Compile Include="Excel\WorkWithExcelImport.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

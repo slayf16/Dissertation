@@ -13,7 +13,6 @@ namespace TestOPt2
         public double Phi_G { get; set; } = 1.49445;
         public double Phi_P { get; set; } = 1.49445;
 
-        //private IRandomizerNumber<double> randomizerTextRegex = RandomizerFactory.GetRandomizer(new FieldOptionsDouble());
 
         /// <summary>
         /// Gets the best fitness of all particles.
@@ -96,8 +95,6 @@ namespace TestOPt2
         //  значение аргумента 
         private double NextDoubleInRange(double min, double max)
         {
-            //var rand = randomizerTextRegex.Generate() ?? 0;
-            //return random.NextDouble() * (max - min) + min;
             return RandomMath.RandomMath.GetRandomValueReal() * (max - min) + min;
         }
 
@@ -145,8 +142,7 @@ namespace TestOPt2
         {
             for (int i = 0; i < p.position.Length; i++)
             {
-                //var rp = random.NextDouble();
-                //var rg = random.NextDouble();
+
 
                 var rp = RandomMath.RandomMath.GetRandomValueReal();
                 var rg = RandomMath.RandomMath.GetRandomValueReal();

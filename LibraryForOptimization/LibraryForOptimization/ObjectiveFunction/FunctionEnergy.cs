@@ -10,6 +10,17 @@ namespace LibraryForOptimization.ObjectiveFunction
 {
     public class FunctionEnergy
     {
+        /// <summary>
+        /// вектор ответов по расходу
+        /// </summary>
+        public double[] RashodAnswer { get; private set; }
+        /// <summary>
+        /// поле для записи полных притоков к гидростанциям (которые ща ниже находятся)
+        /// </summary>
+        private List<double[]> SupplysWater = new List<double[]>();
+
+
+
         private double[] pritokKges = new double[] { 313, 268, 269, 1118, 3954, 3730,
                 1752, 1485, 1310, 1095, 624, 369 };
         private double[] pritokSHges = new double[] { 408, 368, 364, 695, 2902, 3944,
@@ -53,27 +64,17 @@ namespace LibraryForOptimization.ObjectiveFunction
             //path.Add(Directory.GetFiles(way225));
             //path.Add(Directory.GetFiles(way333));
 
-            kgesWZ = WorkWithExcel.InputStructCharacter(path[0][0]);
-            mgesWZ = WorkWithExcel.InputStructCharacter(path[0][1]);
-            shgesWz = WorkWithExcel.InputStructCharacter(path[0][2]);
+            kgesWZ = WorkWithExcelImport.InputStructCharacter(path[0][0]);
+            mgesWZ = WorkWithExcelImport.InputStructCharacter(path[0][1]);
+            shgesWz = WorkWithExcelImport.InputStructCharacter(path[0][2]);
 
-            kgesRashod = WorkWithExcel.InputStructCharacter(path[1][0]);//Q-independent
-            mgesRashod = WorkWithExcel.InputStructCharacter(path[1][1]);//Q-independent
-            shgesRashod = WorkWithExcel.InputStructCharacter(path[1][2]);
+            kgesRashod = WorkWithExcelImport.InputStructCharacter(path[1][0]);//Q-independent
+            mgesRashod = WorkWithExcelImport.InputStructCharacter(path[1][1]);//Q-independent
+            shgesRashod = WorkWithExcelImport.InputStructCharacter(path[1][2]);
 
-            kgesUd = WorkWithExcel.InputStructCharacter(path[2][0]);
-            mgesUd = WorkWithExcel.InputStructCharacter(path[2][1]);
-            shgesUd = WorkWithExcel.InputStructCharacter(path[2][2]);
-
-            
-            /// вектор переменных
-            var Qi = new double[] { 2100, 2109, 2230 };
-
-                                    
-            // задается в ручную , это начальный уровень воды в водохранилище            
-            var ZvbSh0 = 520.0;
-            var ZvbM0 = 324.0;
-            var ZvbK0 = 244.0;
+            kgesUd = WorkWithExcelImport.InputStructCharacter(path[2][0]);
+            mgesUd = WorkWithExcelImport.InputStructCharacter(path[2][1]);
+            shgesUd = WorkWithExcelImport.InputStructCharacter(path[2][2]);           
 
             //начальный приток из листа для соответствующего месяца 
             var QprSh = pritokSHges[0];
@@ -182,8 +183,6 @@ namespace LibraryForOptimization.ObjectiveFunction
 
             // определение удельного расхода 
 
-
-
             var dependentVariblesShgesUd = shgesUd.Select(x => x.DependentVariable).ToList();         
             var q1sh = shgesUd[poiskNaib1Universal(dependentVariblesShgesUd, Hsh)];
             var q1sh1 = q1sh as StructureСaracteristicSpecificGes;    
@@ -233,17 +232,19 @@ namespace LibraryForOptimization.ObjectiveFunction
             Ek = getEnergy(Pk, 6000, time);
             Ek = getCorrectEnergy(Ek, 225, 244.5, Zvb_srK);
 
+            RashodAnswer = vars.ToArray(); 
+
             var E = Esh + Em + Ek;
             return E;
         }
 
         /// <summary>
-        /// 
+        /// штрафная функция за нарушение границ установленной мощности электростанции
         /// </summary>
-        /// <param name="P"></param>
-        /// <param name="limit"></param>
-        /// <param name="time"></param>
-        /// <returns></returns>
+        /// <param name="P">фактическая мощность</param>
+        /// <param name="limit">установленная мощность</param>
+        /// <param name="time">время рассчетного периода</param>
+        /// <returns>величина энергии с учетом ограничения</returns>
         private double getEnergy(double P, double limit, double time)
         {
             double energy;
@@ -259,13 +260,13 @@ namespace LibraryForOptimization.ObjectiveFunction
         }
 
         /// <summary>
-        /// 
+        /// штрафная функция за нарушения границ уровня воды в водохранилище
         /// </summary>
-        /// <param name="energy"></param>
-        /// <param name="limitLeft"></param>
-        /// <param name="limitRight"></param>
-        /// <param name="levelUpperBief"></param>
-        /// <returns></returns>
+        /// <param name="energy">значение энергии</param>
+        /// <param name="limitLeft">уровень мертвого объема (минимальная граница)</param>
+        /// <param name="limitRight">форсированный подпорный уровень (максимальная граница)</param>
+        /// <param name="upperBiefLevel">фактическая величина</param>
+        /// <returns>энергию электростанции за расчетный период</returns>
         private double getCorrectEnergy(double energy, double limitLeft, double limitRight, double upperBiefLevel)
         {
             var result = energy;

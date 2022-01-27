@@ -52,36 +52,44 @@ namespace Dissertation_GUI
             
         }
 
-        private void ограниченияToolStripMenuItem_Click(object sender, EventArgs e)
+        private void LoadLimitGesClickToolStrip(object sender, EventArgs e)
         {
-            var stationLimitModels = new List<StationLimitModel>();
-            List<StationInfo> stationInfoModels;
-            var openDialog = new OpenFileDialog();
-            var diolog =  openDialog.ShowDialog();
-            if (diolog == DialogResult.OK)
+            try
             {
-                var path = openDialog.FileName;
-                stationInfoModels = WorkWithExcel.InputStructLimit(path);
-                foreach(var model in stationInfoModels)
+                var stationLimitModels = new List<StationLimitModel>();
+                List<StationInfo> stationInfoModels;
+                var openDialog = new OpenFileDialog();
+                var diolog = openDialog.ShowDialog();
+                if (diolog == DialogResult.OK)
                 {
-                    var stationName = model.Name;
-                    foreach(var stationLimit in model.Limits )
+                    var path = openDialog.FileName;
+                    stationInfoModels = WorkWithExcelImport.InputStructLimit(path);
+                    foreach (var model in stationInfoModels)
                     {
-                        var stationLimitModel = new StationLimitModel()
+                        var stationName = model.Name;
+                        foreach (var stationLimit in model.Limits)
                         {
-                            GesName = stationName,
-                            LimitName = stationLimit.NameLimitation,
-                            //заменить иф элз
-                            LimitType = stationLimit.RestrictionType ? ">=" : "<=",
-                            LimitValue = stationLimit.NumericalValue,
-                            PeriodStart = stationLimit.StartPeriod.ToShortDateString(),
-                            PeriodFinish = stationLimit.FinishPeriod.ToShortDateString()
-                        };
-                        stationLimitModels.Add(stationLimitModel);
+                            var stationLimitModel = new StationLimitModel()
+                            {
+                                GesName = stationName,
+                                LimitName = stationLimit.NameLimitation,
+                                //заменить иф элз
+                                LimitType = stationLimit.RestrictionType ? ">=" : "<=",
+                                LimitValue = stationLimit.NumericalValue,
+                                PeriodStart = stationLimit.StartPeriod.ToShortDateString(),
+                                PeriodFinish = stationLimit.FinishPeriod.ToShortDateString()
+                            };
+                            stationLimitModels.Add(stationLimitModel);
+                        }
                     }
-                }               
-                dataGridView2.DataSource = stationLimitModels;                
-            }  
+                    dataGridView2.DataSource = stationLimitModels;
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Неверный формат загружаемых данных", "Ошибка", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void dataGridView1_MouseUp(object sender, MouseEventArgs e)
@@ -153,11 +161,11 @@ namespace Dissertation_GUI
             ff.Init(initialDatas[0].LevelVB, initialDatas[1].LevelVB, initialDatas[2].LevelVB);
             var startPosition = new double[] { initialDatas[0].WaterConsumptionNB,
                 initialDatas[1].WaterConsumptionNB, initialDatas[2].WaterConsumptionNB };
-            /// задавать в интерфейсе
+            /// задавать в интерфейсе (читает из второй датагридвьюшки)
             var lowerBound = new double[] { 0, 700, 1740 };
             var upperBound = new double[] { 12000, 13000, 19000 };
 
-            var swarm = new ParticleSwarm(50, lowerBound, upperBound, startPosition, p =>
+            var swarm = new ParticleSwarm(100, lowerBound, upperBound, startPosition, p =>
             {
                 var pList = new List<double>(p);
                 return ff.Calculate(pList);
@@ -168,22 +176,28 @@ namespace Dissertation_GUI
             PogressBarForm progressBarForm = new PogressBarForm();
 
             progressBarForm.Show();
-            
+            //todo: дальше хуета с вектором расходов , хотя получилось цепануть, я в ахуе 
+            var answerRashod = new List<double[]>();
 
 
-            swarm.Step(10000, i =>
+            swarm.Step(1000, i =>
             {
                 Answers.Add(new AnswerStructure(swarm.BestFitness,i));
                 //ps.Add((swarm.BestFitness, swarm.BestPosition[0]));
                 double a = i;
-                progressBarForm.progress(Convert.ToInt32(Math.Round(a / 100)));
-               
+                answerRashod.Add(ff.RashodAnswer);
+                progressBarForm.progress(Convert.ToInt32(Math.Round(a / 10)));
+                
                 return false;
       
             });
+
+
             progressBarForm.Close();
             MessageBox.Show("Расчет выполнен", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
+            AnswerForm answerForm = new AnswerForm();
+            answerForm.RetryAnswer(Answers);
+            answerForm.Show();
         }
     }
 }

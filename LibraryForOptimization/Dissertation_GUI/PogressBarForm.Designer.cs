@@ -55,8 +55,10 @@
             this.ClientSize = new System.Drawing.Size(589, 136);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.progressBar1);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "PogressBarForm";
-            this.Text = "PogressBarForm";
+            this.Text = "Прогресс выполнения расчета";
             this.ResumeLayout(false);
             this.PerformLayout();
 

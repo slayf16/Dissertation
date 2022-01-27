@@ -31,15 +31,18 @@
             this.components = new System.ComponentModel.Container();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.answerStructureBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.button1 = new System.Windows.Forms.Button();
+            this.cartesianChart1 = new LiveCharts.WinForms.CartesianChart();
             this.functionValueDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.iterationDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.answerStructureBindingSource)).BeginInit();
+            this.tabPage2.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -63,16 +66,6 @@
             this.tabPage1.Text = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // tabPage2
-            // 
-            this.tabPage2.Location = new System.Drawing.Point(4, 25);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(744, 397);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "tabPage2";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
             // dataGridView1
             // 
             this.dataGridView1.AutoGenerateColumns = false;
@@ -92,6 +85,36 @@
             // answerStructureBindingSource
             // 
             this.answerStructureBindingSource.DataSource = typeof(LibraryForOptimization.Excel.structureForExcel.AnswerStructure);
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.button1);
+            this.tabPage2.Controls.Add(this.cartesianChart1);
+            this.tabPage2.Location = new System.Drawing.Point(4, 25);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(744, 397);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "tabPage2";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(641, 18);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 1;
+            this.button1.Text = "Построить";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // cartesianChart1
+            // 
+            this.cartesianChart1.Location = new System.Drawing.Point(0, 3);
+            this.cartesianChart1.Name = "cartesianChart1";
+            this.cartesianChart1.Size = new System.Drawing.Size(608, 388);
+            this.cartesianChart1.TabIndex = 0;
+            this.cartesianChart1.Text = "cartesianChart1";
             // 
             // functionValueDataGridViewTextBoxColumn
             // 
@@ -121,6 +144,7 @@
             this.tabPage1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.answerStructureBindingSource)).EndInit();
+            this.tabPage2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -131,8 +155,10 @@
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.BindingSource answerStructureBindingSource;
+        private System.Windows.Forms.Button button1;
+        private LiveCharts.WinForms.CartesianChart cartesianChart1;
         private System.Windows.Forms.DataGridViewTextBoxColumn functionValueDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn iterationDataGridViewTextBoxColumn;
-        private System.Windows.Forms.BindingSource answerStructureBindingSource;
     }
 }

@@ -59,10 +59,10 @@
             this.ограниченияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.характеристикиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.расчетToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.stationContextBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.добавитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.удалитьВыделеннуюСтрокуToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.stationContextBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.initialDataBindingSource)).BeginInit();
@@ -71,8 +71,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.stationLimitModelBindingSource)).BeginInit();
             this.groupBox3.SuspendLayout();
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.stationContextBindingSource)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.stationContextBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -80,7 +80,7 @@
             this.groupBox1.Controls.Add(this.dataGridView1);
             this.groupBox1.Location = new System.Drawing.Point(36, 32);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(540, 198);
+            this.groupBox1.Size = new System.Drawing.Size(607, 236);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Исходные параметры ГЭС";
@@ -99,8 +99,9 @@
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.Location = new System.Drawing.Point(3, 18);
             this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.RowHeadersWidth = 51;
-            this.dataGridView1.Size = new System.Drawing.Size(534, 177);
+            this.dataGridView1.Size = new System.Drawing.Size(601, 215);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.dataGridView1_MouseUp);
             // 
@@ -143,9 +144,9 @@
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.dataGridView2);
-            this.groupBox2.Location = new System.Drawing.Point(39, 236);
+            this.groupBox2.Location = new System.Drawing.Point(39, 274);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(807, 224);
+            this.groupBox2.Size = new System.Drawing.Size(1010, 283);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Исходные параметры по ограничениям ГЭС";
@@ -166,9 +167,10 @@
             this.dataGridView2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView2.Location = new System.Drawing.Point(3, 18);
             this.dataGridView2.Name = "dataGridView2";
+            this.dataGridView2.RowHeadersVisible = false;
             this.dataGridView2.RowHeadersWidth = 51;
             this.dataGridView2.RowTemplate.Height = 24;
-            this.dataGridView2.Size = new System.Drawing.Size(801, 203);
+            this.dataGridView2.Size = new System.Drawing.Size(1004, 262);
             this.dataGridView2.TabIndex = 3;
             this.dataGridView2.MouseUp += new System.Windows.Forms.MouseEventHandler(this.dataGridView2_MouseUp);
             // 
@@ -232,9 +234,9 @@
             this.groupBox3.Controls.Add(this.label1);
             this.groupBox3.Controls.Add(this.radioButton2);
             this.groupBox3.Controls.Add(this.radioButton1);
-            this.groupBox3.Location = new System.Drawing.Point(777, 38);
+            this.groupBox3.Location = new System.Drawing.Point(668, 32);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(162, 189);
+            this.groupBox3.Size = new System.Drawing.Size(188, 189);
             this.groupBox3.TabIndex = 1;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Параметры расчета";
@@ -243,7 +245,7 @@
             // 
             this.textBox1.Location = new System.Drawing.Point(6, 155);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(121, 22);
+            this.textBox1.Size = new System.Drawing.Size(176, 22);
             this.textBox1.TabIndex = 4;
             // 
             // label2
@@ -260,7 +262,7 @@
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Location = new System.Drawing.Point(6, 102);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 24);
+            this.comboBox1.Size = new System.Drawing.Size(176, 24);
             this.comboBox1.TabIndex = 2;
             // 
             // label1
@@ -296,11 +298,11 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(864, 423);
+            this.button1.Location = new System.Drawing.Point(668, 228);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.Size = new System.Drawing.Size(103, 37);
             this.button1.TabIndex = 4;
-            this.button1.Text = "button1";
+            this.button1.Text = "Очистить";
             this.button1.UseVisualStyleBackColor = true;
             // 
             // menuStrip1
@@ -311,7 +313,7 @@
             this.расчетToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(989, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(1077, 28);
             this.menuStrip1.TabIndex = 5;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -337,7 +339,7 @@
             this.ограниченияToolStripMenuItem.Name = "ограниченияToolStripMenuItem";
             this.ограниченияToolStripMenuItem.Size = new System.Drawing.Size(203, 26);
             this.ограниченияToolStripMenuItem.Text = "Ограничения";
-            this.ограниченияToolStripMenuItem.Click += new System.EventHandler(this.ограниченияToolStripMenuItem_Click);
+            this.ограниченияToolStripMenuItem.Click += new System.EventHandler(this.LoadLimitGesClickToolStrip);
             // 
             // характеристикиToolStripMenuItem
             // 
@@ -348,14 +350,10 @@
             // 
             // расчетToolStripMenuItem
             // 
+            this.расчетToolStripMenuItem.Image = global::Dissertation_GUI.Properties.Resources._8680246_play_mini_fill_icon;
             this.расчетToolStripMenuItem.Name = "расчетToolStripMenuItem";
-            this.расчетToolStripMenuItem.Size = new System.Drawing.Size(68, 24);
-            this.расчетToolStripMenuItem.Text = "Расчет";
+            this.расчетToolStripMenuItem.Size = new System.Drawing.Size(34, 24);
             this.расчетToolStripMenuItem.Click += new System.EventHandler(this.расчетToolStripMenuItem_Click);
-            // 
-            // stationContextBindingSource
-            // 
-            this.stationContextBindingSource.DataSource = typeof(LibraryForOptimization.Repository.StationContext);
             // 
             // contextMenuStrip1
             // 
@@ -379,19 +377,25 @@
             this.удалитьВыделеннуюСтрокуToolStripMenuItem.Size = new System.Drawing.Size(275, 24);
             this.удалитьВыделеннуюСтрокуToolStripMenuItem.Text = "Удалить выделенную строку";
             // 
+            // stationContextBindingSource
+            // 
+            this.stationContextBindingSource.DataSource = typeof(LibraryForOptimization.Repository.StationContext);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(989, 540);
+            this.ClientSize = new System.Drawing.Size(1077, 569);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.menuStrip1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MainMenuStrip = this.menuStrip1;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "MainForm";
-            this.Text = "Form1";
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.initialDataBindingSource)).EndInit();
@@ -402,8 +406,8 @@
             this.groupBox3.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.stationContextBindingSource)).EndInit();
             this.contextMenuStrip1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.stationContextBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

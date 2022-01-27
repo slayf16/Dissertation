@@ -14,12 +14,11 @@ using OfficeOpenXml;
 namespace LibraryForOptimization
 { 
     /// <summary>
-    /// 
+    /// Класс для загрузки структур из MSExcel
     /// </summary>
-    public class WorkWithExcel
+    public class WorkWithExcelImport
     {
 
-        //+
         /// <summary>
         /// метод для формирования массива из входящих файлов 
         /// </summary>
@@ -168,13 +167,5 @@ namespace LibraryForOptimization
 
         }
 
-        /// <summary>
-        /// метод для формирования массива для выходящих фаайлов
-        /// </summary>
-        /// <param name="path">путь куда сохраняем</param>
-        public void Output(string path)
-        {
-
-        }
     }
 }
