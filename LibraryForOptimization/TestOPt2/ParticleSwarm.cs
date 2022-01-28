@@ -22,57 +22,13 @@ namespace TestOPt2
         /// лучшее положение 
         /// </summary>
         /// <value>The best fitness.</value>
-        public double BestFitness { get; private set; }
+        public double BestResult { get; private set; }
 
         /// <summary>
         /// лучшее значение аргумента
         /// </summary>
         /// <value>The best position.</value>
         public double[] BestPosition { get; private set; }
-
-        /// <summary>
-        /// модель частицы
-        /// </summary>
-        private class Particle
-        {
-            /// <summary>
-            /// вектор аргумента
-            /// </summary>
-            public double[] position;
-
-            /// <summary>
-            /// вектор скоростей
-            /// </summary>
-            public double[] velocity;
-
-            /// <summary>
-            /// вектор аргумента для лучшей локальной позиции
-            /// </summary>
-            public double[] bestPosition;
-
-            /// <summary>
-            /// текущая позиция
-            /// </summary>
-            public double fitness;
-
-            /// <summary>
-            /// лучшая позиция
-            /// </summary>
-            public double bestFitness;
-
-            /// <summary>
-            /// конструктор класса
-            /// </summary>
-            /// <param name="numDimensions">количество аргументов в векторе (размерность функции)</param>
-            public Particle(int numDimensions)
-            {
-                position = new double[numDimensions];
-                velocity = new double[numDimensions];
-                bestPosition = new double[numDimensions];
-                bestFitness = fitness = double.MinValue;
-            }
-        }
-
       
         //поле для роя 
         private Particle[] _particles;
@@ -81,7 +37,7 @@ namespace TestOPt2
         private double[] _upperBound;
 
         //поле для целевой функции
-        private Func<double[], double> _fitnessFunc;
+        private Func<double[], double> _objectiveFunc;
 
         /// <summary>       
         /// Конструктор класса
@@ -96,14 +52,14 @@ namespace TestOPt2
             if (lowerBound.Length != upperBound.Length)
                 throw new ArgumentException("Dimensions of lower and upper bound do not match");
 
-            _fitnessFunc = evalFunc;
+            _objectiveFunc = evalFunc;
             this._lowerBound = lowerBound;
             this._upperBound = upperBound;
 
             //размерность функции
             var numDimensions = lowerBound.Length;
 
-            BestFitness = double.MinValue;
+            BestResult = double.MinValue;
             BestPosition = new double[numDimensions];
             _particles = new Particle[numParticles];
 
@@ -175,7 +131,7 @@ namespace TestOPt2
         /// <param name="p">частица</param>
         private void evaluateParticle(Particle p)
         {
-            p.fitness = _fitnessFunc(p.position);
+            p.fitness = _objectiveFunc(p.position);
 
             if (p.fitness > p.bestFitness)
             {
@@ -184,9 +140,9 @@ namespace TestOPt2
 
                 lock (this)
                 {
-                    if (p.bestFitness > BestFitness)
+                    if (p.bestFitness > BestResult)
                     {
-                        BestFitness = p.bestFitness;
+                        BestResult = p.bestFitness;
                         Array.Copy(p.bestPosition, BestPosition, p.bestPosition.Length);
                     }
                 }

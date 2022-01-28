@@ -183,7 +183,7 @@ namespace Dissertation_GUI
             swarm.Step(1000, i =>
             {
                 
-                Answers.Add(new AnswerStructure(swarm.BestFitness,i));
+                Answers.Add(new AnswerStructure(swarm.BestResult,i));
                 //ps.Add((swarm.BestFitness, swarm.BestPosition[0]));
                 double a = i;
                 Answers[i].RashodAnswer =objectiveFunction.RashodAnswer;
