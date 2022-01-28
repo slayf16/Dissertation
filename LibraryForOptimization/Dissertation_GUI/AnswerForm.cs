@@ -21,7 +21,7 @@ namespace Dissertation_GUI
         /// <summary>
         /// поле для получения структуры ответа
         /// </summary>
-        public BindingList<AnswerStructure> answerViewTable = new BindingList<AnswerStructure>(); 
+        public List<AnswerStructure> answerTable = new List<AnswerStructure>(); 
 
         /// <summary>
         /// конструктор формы
@@ -38,12 +38,31 @@ namespace Dissertation_GUI
         /// метод обновления поля
         /// </summary>
         /// <param name="a"></param>
-        public void RetryAnswer(BindingList<AnswerStructure> a)
+        public void RetryAnswer(List<AnswerStructure> a)
         {
-
-            answerViewTable = a;
-            dataGridView1.DataSource = answerViewTable;
+            answerTable = a;
+            int countColumn = a[0].RashodAnswer.Length + 2;
+            dataGridView1.ColumnCount = countColumn;
+            dataGridView1.Columns[0].HeaderText = "Function Value";
+            dataGridView1.Columns[1].HeaderText = "iteration";
+            for (int i = 2; i < countColumn; i++)
+            {
+                dataGridView1.Columns[i].HeaderText = $"Q{i - 1}";
+            }
             
+            for(int i = 0; i<a.Count; i++)
+            {
+                dataGridView1.Rows.Add();
+                dataGridView1[0, i].Value = a[i].FunctionValue;
+                dataGridView1[1, i].Value = a[i].Iteration;
+                for (int j = 2; j < countColumn; j++)
+                {
+                    dataGridView1[j, i].Value = a[i].RashodAnswer[j - 2];
+                }
+            }
+            //answerViewTable = a;
+            //dataGridView1.DataSource = answerViewTable;
+
         }
 
         /// <summary>
@@ -53,14 +72,22 @@ namespace Dissertation_GUI
         /// <param name="e"></param>
         private void button1_Click(object sender, EventArgs e)
         {
+            
+            //int indexColumn = Convert.ToInt32(textBox1.Text);
             SeriesCollection series = new SeriesCollection();
             ChartValues<double> d = new ChartValues<double>();
             List<string> index = new List<string>();
 
-            foreach(var a in answerViewTable)
+
+            foreach (var b in answerTable)
             {
-                d.Add(a.FunctionValue);
-                index.Add(a.Iteration.ToString());
+                if(b.Iteration < 2)
+                {
+                    continue;
+                }
+
+                d.Add(b.FunctionValue);
+                index.Add(b.Iteration.ToString());
             }
             cartesianChart1.AxisX.Clear();
             cartesianChart1.AxisX.Add(new Axis()
@@ -68,7 +95,7 @@ namespace Dissertation_GUI
                 Title = "итерация",
                 Labels = index
 
-            }) ;
+            });
             LineSeries s = new LineSeries();
 
             s.Title = "значение целевой функции";

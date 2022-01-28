@@ -16,7 +16,10 @@ namespace LibraryForOptimization.Excel.structureForExcel
 
         public int Iteration { get; set; }
 
-        public List<double[]> RashodAnswer { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public double[] RashodAnswer;
 
         public AnswerStructure() { }
 

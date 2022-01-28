@@ -32,17 +32,18 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.answerStructureBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.button1 = new System.Windows.Forms.Button();
             this.cartesianChart1 = new LiveCharts.WinForms.CartesianChart();
-            this.functionValueDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.iterationDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.answerStructureBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.answerStructureBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.answerStructureBindingSource)).BeginInit();
             this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.answerStructureBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.answerStructureBindingSource1)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -68,12 +69,7 @@
             // 
             // dataGridView1
             // 
-            this.dataGridView1.AutoGenerateColumns = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.functionValueDataGridViewTextBoxColumn,
-            this.iterationDataGridViewTextBoxColumn});
-            this.dataGridView1.DataSource = this.answerStructureBindingSource;
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.Location = new System.Drawing.Point(3, 3);
             this.dataGridView1.Name = "dataGridView1";
@@ -82,12 +78,9 @@
             this.dataGridView1.Size = new System.Drawing.Size(738, 391);
             this.dataGridView1.TabIndex = 0;
             // 
-            // answerStructureBindingSource
-            // 
-            this.answerStructureBindingSource.DataSource = typeof(LibraryForOptimization.Excel.structureForExcel.AnswerStructure);
-            // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.textBox1);
             this.tabPage2.Controls.Add(this.button1);
             this.tabPage2.Controls.Add(this.cartesianChart1);
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
@@ -116,21 +109,20 @@
             this.cartesianChart1.TabIndex = 0;
             this.cartesianChart1.Text = "cartesianChart1";
             // 
-            // functionValueDataGridViewTextBoxColumn
+            // answerStructureBindingSource
             // 
-            this.functionValueDataGridViewTextBoxColumn.DataPropertyName = "FunctionValue";
-            this.functionValueDataGridViewTextBoxColumn.HeaderText = "FunctionValue";
-            this.functionValueDataGridViewTextBoxColumn.MinimumWidth = 6;
-            this.functionValueDataGridViewTextBoxColumn.Name = "functionValueDataGridViewTextBoxColumn";
-            this.functionValueDataGridViewTextBoxColumn.Width = 125;
+            this.answerStructureBindingSource.DataSource = typeof(LibraryForOptimization.Excel.structureForExcel.AnswerStructure);
             // 
-            // iterationDataGridViewTextBoxColumn
+            // answerStructureBindingSource1
             // 
-            this.iterationDataGridViewTextBoxColumn.DataPropertyName = "Iteration";
-            this.iterationDataGridViewTextBoxColumn.HeaderText = "Iteration";
-            this.iterationDataGridViewTextBoxColumn.MinimumWidth = 6;
-            this.iterationDataGridViewTextBoxColumn.Name = "iterationDataGridViewTextBoxColumn";
-            this.iterationDataGridViewTextBoxColumn.Width = 125;
+            this.answerStructureBindingSource1.DataSource = typeof(LibraryForOptimization.Excel.structureForExcel.AnswerStructure);
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(625, 47);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(100, 22);
+            this.textBox1.TabIndex = 2;
             // 
             // AnswerForm
             // 
@@ -143,8 +135,10 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.answerStructureBindingSource)).EndInit();
             this.tabPage2.ResumeLayout(false);
+            this.tabPage2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.answerStructureBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.answerStructureBindingSource1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -158,7 +152,7 @@
         private System.Windows.Forms.BindingSource answerStructureBindingSource;
         private System.Windows.Forms.Button button1;
         private LiveCharts.WinForms.CartesianChart cartesianChart1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn functionValueDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn iterationDataGridViewTextBoxColumn;
+        private System.Windows.Forms.BindingSource answerStructureBindingSource1;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }

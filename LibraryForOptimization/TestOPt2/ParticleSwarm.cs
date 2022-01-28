@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 
@@ -8,70 +9,103 @@ namespace TestOPt2
     public class ParticleSwarm
     {
         // Particle swarm parameters. 
-        // https://en.wikipedia.org/wiki/Particle_swarm_optimization
         public double Omega { get; set; } = 0.729;
         public double Phi_G { get; set; } = 1.49445;
         public double Phi_P { get; set; } = 1.49445;
 
+        /// <summary>
+        /// поля для вывода траекторий скоростей 
+        /// </summary>
+        public List<List<double[]>> ListVelosity = new List<List<double[]>>();
 
         /// <summary>
-        /// Gets the best fitness of all particles.
+        /// лучшее положение 
         /// </summary>
         /// <value>The best fitness.</value>
         public double BestFitness { get; private set; }
 
         /// <summary>
-        /// Gets the best position of all particles.
+        /// лучшее значение аргумента
         /// </summary>
         /// <value>The best position.</value>
         public double[] BestPosition { get; private set; }
 
+        /// <summary>
+        /// модель частицы
+        /// </summary>
         private class Particle
         {
+            /// <summary>
+            /// вектор аргумента
+            /// </summary>
             public double[] position;
+
+            /// <summary>
+            /// вектор скоростей
+            /// </summary>
             public double[] velocity;
+
+            /// <summary>
+            /// вектор аргумента для лучшей локальной позиции
+            /// </summary>
             public double[] bestPosition;
+
+            /// <summary>
+            /// текущая позиция
+            /// </summary>
             public double fitness;
+
+            /// <summary>
+            /// лучшая позиция
+            /// </summary>
             public double bestFitness;
 
+            /// <summary>
+            /// конструктор класса
+            /// </summary>
+            /// <param name="numDimensions">количество аргументов в векторе (размерность функции)</param>
             public Particle(int numDimensions)
             {
                 position = new double[numDimensions];
                 velocity = new double[numDimensions];
                 bestPosition = new double[numDimensions];
-                bestFitness = fitness = -double.MaxValue;
+                bestFitness = fitness = double.MinValue;
             }
         }
 
-        //private Random random = new Random();
-        private Particle[] particles;
+      
+        //поле для роя 
+        private Particle[] _particles;
+        //поля для границ на каждую координату вектора аргумента 
+        private double[] _lowerBound;
+        private double[] _upperBound;
 
-        private double[] lowerBound;
-        private double[] upperBound;
-        private Func<double[], double> fitnessFunc;
+        //поле для целевой функции
+        private Func<double[], double> _fitnessFunc;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="T:ParticleSwarmOptimization.ParticleSwarm"/> class.
-        /// The particle swarm maximizes the particle fitness.
+        /// <summary>       
+        /// Конструктор класса
         /// </summary>
-        /// <param name="numParticles">Number of particles.</param>
-        /// <param name="lowerBound">Lower bound of the solution space.</param>
-        /// <param name="upperBound">Upper bound of the solution space.</param>
-        /// <param name="evalFunc">Evaluation function which takes the particle positions and returns its fitness.</param>
+        /// <param name="numParticles">количество частиц</param>
+        /// <param name="lowerBound">Нижняя граница аргумента</param>
+        /// <param name="upperBound">Верхняя граница аргумента</param>
+        /// <param name="evalFunc">целевая функция</param>
         public ParticleSwarm(int numParticles, double[] lowerBound, double[] upperBound, double[] startPosition, Func<double[], double> evalFunc)
         {
+
             if (lowerBound.Length != upperBound.Length)
                 throw new ArgumentException("Dimensions of lower and upper bound do not match");
 
-            this.fitnessFunc = evalFunc;
-            this.lowerBound = lowerBound;
-            this.upperBound = upperBound;
+            _fitnessFunc = evalFunc;
+            this._lowerBound = lowerBound;
+            this._upperBound = upperBound;
 
+            //размерность функции
             var numDimensions = lowerBound.Length;
 
-            BestFitness = -double.MaxValue;
+            BestFitness = double.MinValue;
             BestPosition = new double[numDimensions];
-            particles = new Particle[numParticles];
+            _particles = new Particle[numParticles];
 
             for (int i = 0; i < numParticles; i++)
             {
@@ -80,47 +114,68 @@ namespace TestOPt2
                 for (int j = 0; j < numDimensions; j++)
                 {
                     var diff = upperBound[j] - lowerBound[j];
-                    //p.position[j] = NextDoubleInRange(lowerBound[j], upperBound[j]);
+                    p.position[j] = nextDoubleInRange(lowerBound[j], upperBound[j]);
                     
                     //случайная скорсть 
-                    p.velocity[j] = NextDoubleInRange(-diff, +diff);
+                    p.velocity[j] = nextDoubleInRange(-diff, +diff);
                 }
 
-                p.position = startPosition;
-                particles[i] = p;
+               // p.position = startPosition;
+                _particles[i] = p;
+             
             }
             
         }
 
-        //  значение аргумента 
-        private double NextDoubleInRange(double min, double max)
+        /// <summary>
+        /// вычисление значений координат аргумента 
+        /// </summary>
+        /// <param name="min">минимальное значение границ</param>
+        /// <param name="max">максимальное значение границ</param>
+        /// <returns></returns>
+        private double nextDoubleInRange(double min, double max)
         {
             return RandomMath.RandomMath.GetRandomValueReal() * (max - min) + min;
         }
 
         /// <summary>
-        /// Step the particle swarm for a given number of steps.
+        /// метод для вычисления шага
         /// </summary>
-        /// <param name="count">Maximum number of steps.</param>
-        /// <param name="stepFunc">Step function. Takes current iteration counter and returns true when the stepping should be aborted.</param>
+        /// <param name="count">максимальное количество итераций.</param>
+        /// <param name="stepFunc">ступенчатая функция. Принимает текущий счетчик итераций и возвращает True,
+        /// когда пошаговое выполнение должно быть прервано</param>
         public void Step(int count, Func<int, bool> stepFunc)
         {
+
+            for (int i = 0; i < 3; i++)
+            {
+                ListVelosity.Add(new List<double[]>());                
+            }
             for (int l = 0; l < count; l++)
             {
-                Parallel.For(0, particles.Length, i =>
+                for (int i = 0; i < 3; i++)
                 {
-                    EvaluateParticle(particles[i]);
-                    MoveParticle(particles[i]);
+                    ListVelosity[i].Add(_particles[i].velocity);
+                }
+                Parallel.For(0, _particles.Length, i =>
+                {
+                    evaluateParticle(_particles[i]);
+                    moveParticle(_particles[i]);
                 });
 
                 if (stepFunc(l))
                     break;
             }
+
         }
 
-        private void EvaluateParticle(Particle p)
+        /// <summary>
+        /// метод для проверки и записи лучшей позиции
+        /// </summary>
+        /// <param name="p">частица</param>
+        private void evaluateParticle(Particle p)
         {
-            p.fitness = fitnessFunc(p.position);
+            p.fitness = _fitnessFunc(p.position);
 
             if (p.fitness > p.bestFitness)
             {
@@ -138,7 +193,11 @@ namespace TestOPt2
             }
         }
 
-        private void MoveParticle(Particle p)
+        /// <summary>
+        /// метод для мычисления нового положения частицы
+        /// </summary>
+        /// <param name="p">частица</param>
+        private void moveParticle(Particle p)
         {
             for (int i = 0; i < p.position.Length; i++)
             {
@@ -153,10 +212,10 @@ namespace TestOPt2
 
                 p.position[i] += p.velocity[i];
 
-                if (p.position[i] > upperBound[i])
-                    p.position[i] = upperBound[i];
-                if (p.position[i] < lowerBound[i])
-                    p.position[i] = lowerBound[i];
+                if (p.position[i] > _upperBound[i])
+                    p.position[i] = _upperBound[i];
+                if (p.position[i] < _lowerBound[i])
+                    p.position[i] = _lowerBound[i];
             }
         }
 

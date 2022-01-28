@@ -25,7 +25,7 @@ namespace Dissertation_GUI
 
         public BindingList<InitialData> initialDatas = new BindingList<InitialData>();
 
-        public BindingList<AnswerStructure> Answers = new BindingList<AnswerStructure>();
+        public List<AnswerStructure> Answers = new List<AnswerStructure>();
        
         
        //TODO: подумать что делать с путями характеристик
@@ -157,8 +157,8 @@ namespace Dissertation_GUI
         private void расчетToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
-            var ff = new FunctionEnergy(way);
-            ff.Init(initialDatas[0].LevelVB, initialDatas[1].LevelVB, initialDatas[2].LevelVB);
+            var objectiveFunction = new FunctionEnergy(way);
+            objectiveFunction.Init(initialDatas[0].LevelVB, initialDatas[1].LevelVB, initialDatas[2].LevelVB);
             var startPosition = new double[] { initialDatas[0].WaterConsumptionNB,
                 initialDatas[1].WaterConsumptionNB, initialDatas[2].WaterConsumptionNB };
             /// задавать в интерфейсе (читает из второй датагридвьюшки)
@@ -168,7 +168,7 @@ namespace Dissertation_GUI
             var swarm = new ParticleSwarm(100, lowerBound, upperBound, startPosition, p =>
             {
                 var pList = new List<double>(p);
-                return ff.Calculate(pList);
+                return objectiveFunction.Calculate(pList);
             });
             var max = 0.0;
            // List<(double, double)> ps = new List<(double, double)>();
@@ -176,23 +176,25 @@ namespace Dissertation_GUI
             PogressBarForm progressBarForm = new PogressBarForm();
 
             progressBarForm.Show();
-            //todo: дальше хуета с вектором расходов , хотя получилось цепануть, я в ахуе 
+            
             var answerRashod = new List<double[]>();
 
 
             swarm.Step(1000, i =>
             {
+                
                 Answers.Add(new AnswerStructure(swarm.BestFitness,i));
                 //ps.Add((swarm.BestFitness, swarm.BestPosition[0]));
                 double a = i;
-                answerRashod.Add(ff.RashodAnswer);
+                Answers[i].RashodAnswer =objectiveFunction.RashodAnswer;
+                answerRashod.Add(objectiveFunction.RashodAnswer);
                 progressBarForm.progress(Convert.ToInt32(Math.Round(a / 10)));
                 
                 return false;
       
             });
 
-
+            
             progressBarForm.Close();
             MessageBox.Show("Расчет выполнен", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
             AnswerForm answerForm = new AnswerForm();
