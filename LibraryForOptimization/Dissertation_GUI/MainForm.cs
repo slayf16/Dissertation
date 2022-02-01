@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,10 +18,7 @@ namespace Dissertation_GUI
     public partial class MainForm : Form
     {
 
-       
-
-       // private DataGridView _selectedDataGridView { get; set;  }
-        
+        int iii = 0;
         
 
         public BindingList<InitialData> initialDatas = new BindingList<InitialData>();
@@ -36,7 +34,7 @@ namespace Dissertation_GUI
             var testID = new int[3] {1, 2, 3 }; 
             var testN = new string[3] { "СШГЭС", "МГЭС", "КГЭС" };
             var testQ = new double[3] { 2100, 2109, 2230 };
-            var testZ = new double[3] { 520, 324, 244 };
+            var testZ = new double[3] { 535, 322, 240 };
             for(int i = 0; i< 3; i++)
             {
                 var test = new InitialData();
@@ -108,7 +106,7 @@ namespace Dissertation_GUI
             
         }
 
-        //TODO: какая то херня
+        //TODO: какая то херня (спросить у никиты, тут почему то привязка контекстного меню неправильно работает)
         private void AddToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (dataGridView1.ContextMenuStrip == contextMenuStrip1)
@@ -139,6 +137,7 @@ namespace Dissertation_GUI
         //TODO: сделать адекватное получение пути
         private void характеристикиToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            List<string> sfd = new List<string>();
             var stationLimitModels = new List<StationLimitModel>();
             
             var openDialog = new OpenFileDialog();
@@ -149,14 +148,16 @@ namespace Dissertation_GUI
             {
                 
                 var path = openDialog.FileNames;
+                
                 way.Add(path);
             }
 
+            fillingSheet(way);
         }
 
-        private void расчетToolStripMenuItem_Click(object sender, EventArgs e)
+        private void calculation(object sender, EventArgs e)
         {
-
+            //TODO: добавить останов расчета 
             var objectiveFunction = new FunctionEnergy(way);
             objectiveFunction.Init(initialDatas[0].LevelVB, initialDatas[1].LevelVB, initialDatas[2].LevelVB);
             var startPosition = new double[] { initialDatas[0].WaterConsumptionNB,
@@ -173,7 +174,7 @@ namespace Dissertation_GUI
             var max = 0.0;
            // List<(double, double)> ps = new List<(double, double)>();
 
-            PogressBarForm progressBarForm = new PogressBarForm();
+            ProgressBarForm progressBarForm = new ProgressBarForm();
 
             progressBarForm.Show();
             
@@ -201,5 +202,16 @@ namespace Dissertation_GUI
             answerForm.RetryAnswer(Answers);
             answerForm.Show();
         }
+
+        private void fillingSheet(List<string[]> textToList)
+        {
+            
+            for (int i = 0; i<textToList[iii].Length; i++)
+            {
+                listBox1.Items.Add($"{Path.GetFileName(textToList[iii][i])}\t");
+            }
+            iii++;
+        }
+
     }
 }

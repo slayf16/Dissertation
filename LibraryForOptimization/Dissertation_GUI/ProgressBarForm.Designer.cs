@@ -1,6 +1,6 @@
 ﻿namespace Dissertation_GUI
 {
-    partial class PogressBarForm
+    partial class ProgressBarForm
     {
         /// <summary>
         /// Required designer variable.

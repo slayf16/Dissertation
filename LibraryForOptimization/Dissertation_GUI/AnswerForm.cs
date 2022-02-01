@@ -30,6 +30,7 @@ namespace Dissertation_GUI
         {
 
             InitializeComponent();
+           
 
             
         }
@@ -78,7 +79,7 @@ namespace Dissertation_GUI
             ChartValues<double> d = new ChartValues<double>();
             List<string> index = new List<string>();
 
-
+            //toDO: СРЕДНЕЕ АРИФ
             foreach (var b in answerTable)
             {
                 if(b.Iteration < 2)

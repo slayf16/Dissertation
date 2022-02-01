@@ -10,17 +10,17 @@ using System.Windows.Forms;
 
 namespace Dissertation_GUI
 {
-    public partial class PogressBarForm : Form
+    public partial class ProgressBarForm : Form
     {
         
-        public PogressBarForm()
+        public ProgressBarForm()
         {
             InitializeComponent();
             label1.Text = "";
             
         }
         
-        public  void progress(int i)
+        public void progress(int i)
         {
 
             progressBar1.Value = i;

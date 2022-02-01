@@ -84,11 +84,11 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="PogressBarForm.cs">
+    <Compile Include="ProgressBarForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PogressBarForm.Designer.cs">
-      <DependentUpon>PogressBarForm.cs</DependentUpon>
+    <Compile Include="ProgressBarForm.Designer.cs">
+      <DependentUpon>ProgressBarForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -104,8 +104,8 @@
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PogressBarForm.resx">
-      <DependentUpon>PogressBarForm.cs</DependentUpon>
+    <EmbeddedResource Include="ProgressBarForm.resx">
+      <DependentUpon>ProgressBarForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -161,6 +161,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\8680246_play_mini_fill_icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\211877_plus_round_icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\211864_minus_icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\211773_minus_empty_icon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

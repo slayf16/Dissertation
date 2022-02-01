@@ -121,4 +121,13 @@
   <data name="8680246_play_mini_fill_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\8680246_play_mini_fill_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="211864_minus_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\211864_minus_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="211877_plus_round_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\211877_plus_round_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="211773_minus_empty_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\211773_minus_empty_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

@@ -16,7 +16,7 @@ namespace TestOPt2
         /// <summary>
         /// поля для вывода траекторий скоростей 
         /// </summary>
-        public List<List<double[]>> ListVelosity = new List<List<double[]>>();
+        public List<List<double[]>> ListVeloсity = new List<List<double[]>>();
 
         /// <summary>
         /// лучшее положение 
@@ -105,13 +105,13 @@ namespace TestOPt2
 
             for (int i = 0; i < 3; i++)
             {
-                ListVelosity.Add(new List<double[]>());                
+                ListVeloсity.Add(new List<double[]>());                
             }
             for (int l = 0; l < count; l++)
             {
                 for (int i = 0; i < 3; i++)
                 {
-                    ListVelosity[i].Add(_particles[i].velocity);
+                    ListVeloсity[i].Add(_particles[i].velocity);
                 }
                 Parallel.For(0, _particles.Length, i =>
                 {

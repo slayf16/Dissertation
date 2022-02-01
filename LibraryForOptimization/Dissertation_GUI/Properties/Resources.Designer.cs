@@ -63,6 +63,36 @@ namespace Dissertation_GUI.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _211773_minus_empty_icon {
+            get {
+                object obj = ResourceManager.GetObject("211773_minus_empty_icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _211864_minus_icon {
+            get {
+                object obj = ResourceManager.GetObject("211864_minus_icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _211877_plus_round_icon {
+            get {
+                object obj = ResourceManager.GetObject("211877_plus_round_icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap _8680246_play_mini_fill_icon {
             get {
                 object obj = ResourceManager.GetObject("8680246_play_mini_fill_icon", resourceCulture);

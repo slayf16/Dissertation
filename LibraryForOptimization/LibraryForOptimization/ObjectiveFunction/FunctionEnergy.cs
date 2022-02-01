@@ -14,11 +14,42 @@ namespace LibraryForOptimization.ObjectiveFunction
         /// вектор ответов по расходу
         /// </summary>
         public double[] RashodAnswer { get; private set; }
+
+
+        /// <summary>
+        /// переменная для записи информации о количестве гидростанций в каскаде
+        /// </summary>
+        private int _countGPP;
+
         /// <summary>
         /// поле для записи полных притоков к гидростанциям (которые ща ниже находятся)
         /// </summary>
-        private List<double[]> SupplysWater = new List<double[]>();
+        private List<double[]> _supplysWater = new List<double[]>();
 
+        /// <summary>
+        /// список объемов водохранилищ ГЭС
+        /// </summary>
+        private List<double> _reservoirVolume = new List<double>();
+
+        /// <summary>
+        /// поле для характеристик гэс по расходу 
+        /// </summary>
+        private List<List<StructureСaracteristicGes>> _consumptionCharacteristic;
+
+        /// <summary>
+        /// поле для характеристик гэс по объему
+        /// </summary>
+        private List<List<StructureСaracteristicGes>> _volumeCharacteristic;
+
+        /// <summary>
+        /// поле для характеристик гэс по удельнму расходу
+        /// </summary>
+        private List<List<StructureСaracteristicGes>> _specificConsumptionCharacteristic;
+
+        /// <summary>
+        /// поле для начальныхуровней воды в водохранилище
+        /// </summary>
+        private List<double> _levelReservoirStart;
 
 
         private double[] pritokKges = new double[] { 313, 268, 269, 1118, 3954, 3730,
