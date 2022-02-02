@@ -84,53 +84,54 @@ namespace LibraryForOptimization.ObjectiveFunction
         private List<StructureСaracteristicGes> kgesUd;
         private List<StructureСaracteristicGes> mgesUd;
         private List<StructureСaracteristicGes> shgesUd;
-        //public FunctionEnergy(string way222, string way225, string way333)
-        public FunctionEnergy(List<string[]> path)
+
+        public FunctionEnergy(Dictionary<string, List<StructureСaracteristicGes>> structures)
         {
+            if (structures.Count != 0)
+            {
 
 
-            //List<string[]> path = new List<string[]>();
+                kgesWZ = structures["КГЭС объем"];
+                mgesWZ = structures["МГЭС объем"];
+                shgesWz = structures["СШГЭС объем"];
 
-            //path.Add(Directory.GetFiles(way222));
-            //path.Add(Directory.GetFiles(way225));
-            //path.Add(Directory.GetFiles(way333));
+                kgesRashod = structures["КГЭС расход"];//Q-independent
+                mgesRashod = structures["МГЭС расход"];//Q-independent
+                shgesRashod = structures["СШГЭС расход"];
 
-            kgesWZ = WorkWithExcelImport.InputStructCharacter(path[0][0]);
-            mgesWZ = WorkWithExcelImport.InputStructCharacter(path[0][1]);
-            shgesWz = WorkWithExcelImport.InputStructCharacter(path[0][2]);
+                kgesUd = structures["КГЭС уд"];
+                mgesUd = structures["МГЭС уд"];
+                shgesUd = structures["СШГЭС уд"];
 
-            kgesRashod = WorkWithExcelImport.InputStructCharacter(path[1][0]);//Q-independent
-            mgesRashod = WorkWithExcelImport.InputStructCharacter(path[1][1]);//Q-independent
-            shgesRashod = WorkWithExcelImport.InputStructCharacter(path[1][2]);
+                //начальный приток из листа для соответствующего месяца 
+                var QprSh = pritokSHges[0];
 
-            kgesUd = WorkWithExcelImport.InputStructCharacter(path[2][0]);
-            mgesUd = WorkWithExcelImport.InputStructCharacter(path[2][1]);
-            shgesUd = WorkWithExcelImport.InputStructCharacter(path[2][2]);           
+                // обработка начального уровня воды в верхнем бьефе
+                var dependentVariblesShges = shgesWz.Select(x => x.DependentVariable).ToList();
+                var Z1 = shgesWz[poiskNaib1Universal(dependentVariblesShges, ZvbSh0)];
+                var Z2 = shgesWz[poiskNaimUniversal1(dependentVariblesShges, ZvbSh0)];
 
-            //начальный приток из листа для соответствующего месяца 
-            var QprSh = pritokSHges[0];
+                var dependentVariblesmgesWZ = mgesWZ.Select(x => x.DependentVariable).ToList();
+                var Z1M = mgesWZ[poiskNaib1Universal(dependentVariblesmgesWZ, ZvbM0)];
+                var Z2M = mgesWZ[poiskNaimUniversal1(dependentVariblesmgesWZ, ZvbM0)];
 
-            // обработка начального уровня воды в верхнем бьефе
-            var dependentVariblesShges = shgesWz.Select(x => x.DependentVariable).ToList();            
-            var Z1 = shgesWz[poiskNaib1Universal(dependentVariblesShges, ZvbSh0)];
-            var Z2 = shgesWz[poiskNaimUniversal1(dependentVariblesShges, ZvbSh0)];
+                var dependentVaribleskgesWZ = kgesWZ.Select(x => x.DependentVariable).ToList();
+                var Z1K = kgesWZ[poiskNaib1Universal(dependentVaribleskgesWZ, ZvbK0)];
+                var Z2K = kgesWZ[poiskNaimUniversal1(dependentVaribleskgesWZ, ZvbK0)];
 
-            var dependentVariblesmgesWZ = mgesWZ.Select(x => x.DependentVariable).ToList();         
-            var Z1M = mgesWZ[poiskNaib1Universal(dependentVariblesmgesWZ, ZvbM0)];
-            var Z2M = mgesWZ[poiskNaimUniversal1(dependentVariblesmgesWZ, ZvbM0)];
+                W0 = Z1.IndependentVariable - (Z1.DependentVariable - ZvbSh0) *
+                    (Z1.IndependentVariable - Z2.IndependentVariable) / (Z1.DependentVariable - Z2.IndependentVariable);
 
-            var dependentVaribleskgesWZ = kgesWZ.Select(x => x.DependentVariable).ToList();
-            var Z1K = kgesWZ[poiskNaib1Universal(dependentVaribleskgesWZ, ZvbK0)];       
-            var Z2K = kgesWZ[poiskNaimUniversal1(dependentVaribleskgesWZ, ZvbK0)];
+                W0M = Z1M.IndependentVariable - (Z1M.DependentVariable - ZvbM0) *
+                    (Z1M.IndependentVariable - Z2M.IndependentVariable) / (Z1M.DependentVariable - Z2M.IndependentVariable);
 
-            W0 = Z1.IndependentVariable - (Z1.DependentVariable - ZvbSh0) *
-                (Z1.IndependentVariable - Z2.IndependentVariable) / (Z1.DependentVariable - Z2.IndependentVariable);
-
-            W0M = Z1M.IndependentVariable - (Z1M.DependentVariable - ZvbM0) *
-                (Z1M.IndependentVariable - Z2M.IndependentVariable) / (Z1M.DependentVariable - Z2M.IndependentVariable);
-
-            W0K = Z1K.IndependentVariable - (Z1K.DependentVariable - ZvbK0) *
-                (Z1K.IndependentVariable - Z2K.IndependentVariable) / (Z1K.DependentVariable - Z2K.IndependentVariable);
+                W0K = Z1K.IndependentVariable - (Z1K.DependentVariable - ZvbK0) *
+                    (Z1K.IndependentVariable - Z2K.IndependentVariable) / (Z1K.DependentVariable - Z2K.IndependentVariable);
+            }
+            else
+            {
+                throw new Exception("Необходимо загрузить характеристики");
+            }
 
         }
 

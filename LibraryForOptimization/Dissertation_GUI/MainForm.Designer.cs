@@ -58,16 +58,16 @@
             this.загрузитьИзExcelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ограниченияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.характеристикиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.загрузитьИзБДToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.выходToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.расчетToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.добавитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.удалитьВыделеннуюСтрокуToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.stationContextBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.загрузитьИзБДToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.выходToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.stationContextBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.initialDataBindingSource)).BeginInit();
@@ -77,8 +77,8 @@
             this.groupBox3.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.stationContextBindingSource)).BeginInit();
             this.groupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.stationContextBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -141,6 +141,7 @@
             this.gesIdDataGridViewTextBoxColumn.HeaderText = "Номер ГЭС в каскаде";
             this.gesIdDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.gesIdDataGridViewTextBoxColumn.Name = "gesIdDataGridViewTextBoxColumn";
+            this.gesIdDataGridViewTextBoxColumn.ReadOnly = true;
             this.gesIdDataGridViewTextBoxColumn.Width = 125;
             // 
             // initialDataBindingSource
@@ -152,7 +153,7 @@
             this.groupBox2.Controls.Add(this.dataGridView2);
             this.groupBox2.Location = new System.Drawing.Point(39, 274);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(1010, 283);
+            this.groupBox2.Size = new System.Drawing.Size(1052, 283);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Исходные параметры по ограничениям ГЭС";
@@ -176,7 +177,7 @@
             this.dataGridView2.RowHeadersVisible = false;
             this.dataGridView2.RowHeadersWidth = 51;
             this.dataGridView2.RowTemplate.Height = 24;
-            this.dataGridView2.Size = new System.Drawing.Size(1004, 262);
+            this.dataGridView2.Size = new System.Drawing.Size(1046, 262);
             this.dataGridView2.TabIndex = 3;
             this.dataGridView2.MouseUp += new System.Windows.Forms.MouseEventHandler(this.dataGridView2_MouseUp);
             // 
@@ -294,6 +295,7 @@
             // radioButton1
             // 
             this.radioButton1.AutoSize = true;
+            this.radioButton1.Enabled = false;
             this.radioButton1.Location = new System.Drawing.Point(6, 31);
             this.radioButton1.Name = "radioButton1";
             this.radioButton1.Size = new System.Drawing.Size(94, 21);
@@ -319,7 +321,7 @@
             this.расчетToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1077, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(1118, 28);
             this.menuStrip1.TabIndex = 5;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -340,29 +342,47 @@
             this.ограниченияToolStripMenuItem,
             this.характеристикиToolStripMenuItem});
             this.загрузитьИзExcelToolStripMenuItem.Name = "загрузитьИзExcelToolStripMenuItem";
-            this.загрузитьИзExcelToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.загрузитьИзExcelToolStripMenuItem.Size = new System.Drawing.Size(218, 26);
             this.загрузитьИзExcelToolStripMenuItem.Text = "Загрузить из Excel";
             // 
             // ограниченияToolStripMenuItem
             // 
             this.ограниченияToolStripMenuItem.Name = "ограниченияToolStripMenuItem";
-            this.ограниченияToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.ограниченияToolStripMenuItem.Size = new System.Drawing.Size(203, 26);
             this.ограниченияToolStripMenuItem.Text = "Ограничения";
             this.ограниченияToolStripMenuItem.Click += new System.EventHandler(this.LoadLimitGesClickToolStrip);
             // 
             // характеристикиToolStripMenuItem
             // 
             this.характеристикиToolStripMenuItem.Name = "характеристикиToolStripMenuItem";
-            this.характеристикиToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.характеристикиToolStripMenuItem.Size = new System.Drawing.Size(203, 26);
             this.характеристикиToolStripMenuItem.Text = "Характеристики";
             this.характеристикиToolStripMenuItem.Click += new System.EventHandler(this.характеристикиToolStripMenuItem_Click);
+            // 
+            // загрузитьИзБДToolStripMenuItem
+            // 
+            this.загрузитьИзБДToolStripMenuItem.Name = "загрузитьИзБДToolStripMenuItem";
+            this.загрузитьИзБДToolStripMenuItem.Size = new System.Drawing.Size(218, 26);
+            this.загрузитьИзБДToolStripMenuItem.Text = "Загрузить из БД";
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(215, 6);
+            // 
+            // выходToolStripMenuItem
+            // 
+            this.выходToolStripMenuItem.Name = "выходToolStripMenuItem";
+            this.выходToolStripMenuItem.Size = new System.Drawing.Size(218, 26);
+            this.выходToolStripMenuItem.Text = "Выход";
+            this.выходToolStripMenuItem.Click += new System.EventHandler(this.exitProgram);
             // 
             // расчетToolStripMenuItem
             // 
             this.расчетToolStripMenuItem.Image = global::Dissertation_GUI.Properties.Resources._8680246_play_mini_fill_icon;
             this.расчетToolStripMenuItem.Name = "расчетToolStripMenuItem";
             this.расчетToolStripMenuItem.Size = new System.Drawing.Size(34, 24);
-            this.расчетToolStripMenuItem.Click += new System.EventHandler(this.calculation);
+            this.расчетToolStripMenuItem.Click += new System.EventHandler(this.calculationButton);
             // 
             // contextMenuStrip1
             // 
@@ -385,10 +405,7 @@
             this.удалитьВыделеннуюСтрокуToolStripMenuItem.Name = "удалитьВыделеннуюСтрокуToolStripMenuItem";
             this.удалитьВыделеннуюСтрокуToolStripMenuItem.Size = new System.Drawing.Size(275, 24);
             this.удалитьВыделеннуюСтрокуToolStripMenuItem.Text = "Удалить выделенную строку";
-            // 
-            // stationContextBindingSource
-            // 
-            this.stationContextBindingSource.DataSource = typeof(LibraryForOptimization.Repository.StationContext);
+            this.удалитьВыделеннуюСтрокуToolStripMenuItem.Click += new System.EventHandler(this.DeleteToolStripMenuItem_Click);
             // 
             // listBox1
             // 
@@ -397,7 +414,7 @@
             this.listBox1.ItemHeight = 16;
             this.listBox1.Location = new System.Drawing.Point(3, 18);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(197, 212);
+            this.listBox1.Size = new System.Drawing.Size(226, 212);
             this.listBox1.TabIndex = 6;
             // 
             // groupBox4
@@ -405,33 +422,20 @@
             this.groupBox4.Controls.Add(this.listBox1);
             this.groupBox4.Location = new System.Drawing.Point(862, 32);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(203, 233);
+            this.groupBox4.Size = new System.Drawing.Size(232, 233);
             this.groupBox4.TabIndex = 7;
             this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Загруженные файлы";
+            this.groupBox4.Text = "Загруженные характеристики";
             // 
-            // загрузитьИзБДToolStripMenuItem
+            // stationContextBindingSource
             // 
-            this.загрузитьИзБДToolStripMenuItem.Name = "загрузитьИзБДToolStripMenuItem";
-            this.загрузитьИзБДToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.загрузитьИзБДToolStripMenuItem.Text = "Загрузить из БД";
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(221, 6);
-            // 
-            // выходToolStripMenuItem
-            // 
-            this.выходToolStripMenuItem.Name = "выходToolStripMenuItem";
-            this.выходToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.выходToolStripMenuItem.Text = "Выход";
+            this.stationContextBindingSource.DataSource = typeof(LibraryForOptimization.Repository.StationContext);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1077, 569);
+            this.ClientSize = new System.Drawing.Size(1118, 569);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.groupBox3);
@@ -454,8 +458,8 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.contextMenuStrip1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.stationContextBindingSource)).EndInit();
             this.groupBox4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.stationContextBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -488,10 +492,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn limitValueDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.BindingSource stationContextBindingSource;
-        private System.Windows.Forms.DataGridViewTextBoxColumn gesNameDataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn waterConsumptionNBDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn levelVBDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn gesIdDataGridViewTextBoxColumn;
         private System.Windows.Forms.BindingSource initialDataBindingSource;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem добавитьToolStripMenuItem;
@@ -502,6 +502,10 @@
         private System.Windows.Forms.ToolStripMenuItem загрузитьИзБДToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem выходToolStripMenuItem;
+        private System.Windows.Forms.DataGridViewTextBoxColumn gesNameDataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn waterConsumptionNBDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn levelVBDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn gesIdDataGridViewTextBoxColumn;
     }
 }
 

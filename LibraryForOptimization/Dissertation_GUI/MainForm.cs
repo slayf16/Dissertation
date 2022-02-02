@@ -4,12 +4,7 @@ using LibraryForOptimization.ObjectiveFunction;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using TestOPt2;
 
@@ -18,23 +13,49 @@ namespace Dissertation_GUI
     public partial class MainForm : Form
     {
 
-        int iii = 0;
-        
 
+        int iii = 0;
+
+        /// <summary>
+        /// поле для определения с какого Дата грид было вызвано контекстное меню
+        /// </summary>
+        public int ClickDatagrid;
+
+
+        /// <summary>
+        /// Поле для инициализирующих данных (первая таблица)
+        /// </summary>
         public BindingList<InitialData> initialDatas = new BindingList<InitialData>();
 
+        /// <summary>
+        /// Поле для ограничений (загружаем со стороны [таблица 2]), 
+        /// </summary>
+        public BindingList<StationLimitModel> stationLimitModels = new BindingList<StationLimitModel>();
+
+        /// <summary>
+        /// поле для передачи ответов в другие формы
+        /// </summary>
         public List<AnswerStructure> Answers = new List<AnswerStructure>();
+
+        /// <summary>
+        /// словарь для чтения структур 
+        /// </summary>
+        public Dictionary<string, List<StructureСaracteristicGes>> structures = new Dictionary<string, List<StructureСaracteristicGes>>();
        
         
        //TODO: подумать что делать с путями характеристик
-        public List<string[]> way = new List<string[]>();
+       // public List<string[]> way = new List<string[]>();
 
+        /// <summary>
+        /// 
+        /// </summary>
         public MainForm()
         {
             var testID = new int[3] {1, 2, 3 }; 
             var testN = new string[3] { "СШГЭС", "МГЭС", "КГЭС" };
             var testQ = new double[3] { 2100, 2109, 2230 };
             var testZ = new double[3] { 535, 322, 240 };
+
             for(int i = 0; i< 3; i++)
             {
                 var test = new InitialData();
@@ -46,41 +67,49 @@ namespace Dissertation_GUI
             }
             InitializeComponent();
             dataGridView1.DataSource = initialDatas;
-            
-            
+            dataGridView2.DataSource = stationLimitModels;                        
         }
 
         private void LoadLimitGesClickToolStrip(object sender, EventArgs e)
         {
             try
             {
-                var stationLimitModels = new List<StationLimitModel>();
+               // var stationLimitModels = new List<StationLimitModel>();
                 List<StationInfo> stationInfoModels;
                 var openDialog = new OpenFileDialog();
+                openDialog.Filter = "Excel file (*.xlsx)|*.xlsx";
                 var diolog = openDialog.ShowDialog();
                 if (diolog == DialogResult.OK)
                 {
                     var path = openDialog.FileName;
                     stationInfoModels = WorkWithExcelImport.InputStructLimit(path);
-                    foreach (var model in stationInfoModels)
+                    if (stationInfoModels.Count != 0)
                     {
-                        var stationName = model.Name;
-                        foreach (var stationLimit in model.Limits)
+                        foreach (var model in stationInfoModels)
                         {
-                            var stationLimitModel = new StationLimitModel()
+                            var stationName = model.Name;
+                            foreach (var stationLimit in model.Limits)
                             {
-                                GesName = stationName,
-                                LimitName = stationLimit.NameLimitation,
-                                //заменить иф элз
-                                LimitType = stationLimit.RestrictionType ? ">=" : "<=",
-                                LimitValue = stationLimit.NumericalValue,
-                                PeriodStart = stationLimit.StartPeriod.ToShortDateString(),
-                                PeriodFinish = stationLimit.FinishPeriod.ToShortDateString()
-                            };
-                            stationLimitModels.Add(stationLimitModel);
+                                var stationLimitModel = new StationLimitModel()
+                                {
+                                    GesName = stationName,
+                                    LimitName = stationLimit.NameLimitation,
+                                    //заменить иф элз
+                                    LimitType = stationLimit.RestrictionType ? ">=" : "<=",
+                                    LimitValue = stationLimit.NumericalValue,
+                                    PeriodStart = stationLimit.StartPeriod.ToShortDateString(),
+                                    PeriodFinish = stationLimit.FinishPeriod.ToShortDateString()
+                                };
+                                stationLimitModels.Add(stationLimitModel);
+                            }
                         }
                     }
-                    dataGridView2.DataSource = stationLimitModels;
+                    else
+                    {
+
+                        MessageBox.Show("Неверная структура загружаемых данных", "Ошибка",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
             catch
@@ -94,22 +123,24 @@ namespace Dissertation_GUI
         {
             if(e.Button == MouseButtons.Right)
             {
-                dataGridView1.ContextMenuStrip = contextMenuStrip1; 
+                dataGridView1.ContextMenuStrip = contextMenuStrip1;
+                ClickDatagrid = 1;
+
+            }
+        }
+             
+        private void dataGridView2_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                dataGridView2.ContextMenuStrip = contextMenuStrip1;
+                ClickDatagrid = 2;
             }
         }
 
- 
-       
-      
-        void DeleteRowItem_Click(object sender, EventArgs e)
-        {
-            
-        }
-
-        //TODO: какая то херня (спросить у никиты, тут почему то привязка контекстного меню неправильно работает)
         private void AddToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (dataGridView1.ContextMenuStrip == contextMenuStrip1)
+            if (ClickDatagrid == 1)
             {
                 var add = new AddFormInitData(dataGridView1.Rows.Count);
                 add.ShowDialog();
@@ -126,92 +157,170 @@ namespace Dissertation_GUI
             }
         }
 
-        private void dataGridView2_MouseUp(object sender, MouseEventArgs e)
+        //TODO: спросить у никиты, как сократить
+        private void DeleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (e.Button == MouseButtons.Right)
+            try
             {
-                dataGridView2.ContextMenuStrip = contextMenuStrip1;
+                if (ClickDatagrid == 1)
+                {
+                    var a = dataGridView1.CurrentCellAddress;//X - столбец Y - строка
+                    dataGridView1.Rows[a.Y].Selected = true;
+                    var result = MessageBox.Show("Вы уверены что хотите удалить данную строку?", "Внимание",
+                        MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                   
+                    if(result ==DialogResult.Yes)
+                    {
+                        initialDatas.RemoveAt(a.Y);
+                    }
+                    else
+                    {
+                        dataGridView1.Rows[a.Y].Selected = false;
+                        dataGridView1.Rows[a.Y].Cells[a.X].Selected = true;
+
+                    }
+                }
+                else
+                {
+                    var a = dataGridView2.CurrentCellAddress;//X - столбец Y - строка
+                    dataGridView2.Rows[a.Y].Selected = true;
+                    var result = MessageBox.Show("Вы уверены что хотите удалить данную строку?", "Внимание",
+                        MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                    if (result == DialogResult.Yes)
+                    {
+                        stationLimitModels.RemoveAt(a.Y);
+                    }
+                    else
+                    {
+                        dataGridView2.Rows[a.Y].Selected = false;
+                        dataGridView2.Rows[a.Y].Cells[a.X].Selected = true;
+
+                    }
+
+                }
             }
+            catch
+            {
+                MessageBox.Show("Необходимо выбрать строку для удаления", "Информация",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+
         }
 
         //TODO: сделать адекватное получение пути
         private void характеристикиToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            List<string> sfd = new List<string>();
-            var stationLimitModels = new List<StationLimitModel>();
-            
-            var openDialog = new OpenFileDialog();
-            openDialog.Multiselect = true;
-           
-            var diolog = openDialog.ShowDialog();
-            if (diolog == DialogResult.OK)
+            try
             {
-                
-                var path = openDialog.FileNames;
-                
-                way.Add(path);
-            }
+                var testWay = new List<string>();
+                List<string> sfd = new List<string>();
+                var stationLimitModels = new List<StationLimitModel>();
 
-            fillingSheet(way);
+                var openDialog = new OpenFileDialog();
+                openDialog.Multiselect = true;
+
+                var diolog = openDialog.ShowDialog();
+                if (diolog == DialogResult.OK)
+                {
+                    var path = openDialog.FileNames;
+                    // way.Add(path);
+                    ///TODO: for test
+                    //fillingSheet(path);
+                    foreach (var a in path)
+                    {
+                        testWay.Add(a);
+
+                    }
+                }
+                
+                foreach (var path in testWay)
+                {
+                    var bigDatas = WorkWithExcelImport.InputStructCharacter(path);
+                    if (bigDatas.Count != 0)
+                    {
+                        structures.Add(Path.GetFileNameWithoutExtension(path), bigDatas);
+                        fillingSheet(path);
+                    }
+                    else
+                    {
+                        throw new Exception("неверная структура  данных");
+                    }
+                }
+
+               
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
-        private void calculation(object sender, EventArgs e)
+        private void calculationButton(object sender, EventArgs e)
         {
-            //TODO: добавить останов расчета 
-            var objectiveFunction = new FunctionEnergy(way);
-            objectiveFunction.Init(initialDatas[0].LevelVB, initialDatas[1].LevelVB, initialDatas[2].LevelVB);
-            var startPosition = new double[] { initialDatas[0].WaterConsumptionNB,
+            try
+            {
+                //TODO: добавить останов расчета 
+                var objectiveFunction = new FunctionEnergy(structures);
+                objectiveFunction.Init(initialDatas[0].LevelVB, initialDatas[1].LevelVB, initialDatas[2].LevelVB);
+                var startPosition = new double[] { initialDatas[0].WaterConsumptionNB,
                 initialDatas[1].WaterConsumptionNB, initialDatas[2].WaterConsumptionNB };
-            /// задавать в интерфейсе (читает из второй датагридвьюшки)
-            var lowerBound = new double[] { 0, 700, 1740 };
-            var upperBound = new double[] { 12000, 13000, 19000 };
+                /// задавать в интерфейсе (читает из второй датагридвьюшки)
+                var lowerBound = new double[] { 0, 700, 1740 };
+                var upperBound = new double[] { 12000, 13000, 19000 };
 
-            var swarm = new ParticleSwarm(100, lowerBound, upperBound, startPosition, p =>
-            {
-                var pList = new List<double>(p);
-                return objectiveFunction.Calculate(pList);
-            });
-            var max = 0.0;
-           // List<(double, double)> ps = new List<(double, double)>();
+                var swarm = new ParticleSwarm(100, lowerBound, upperBound, startPosition, p =>
+                {
+                    var pList = new List<double>(p);
+                    return objectiveFunction.Calculate(pList);
+                });
+                var max = 0.0;
 
-            ProgressBarForm progressBarForm = new ProgressBarForm();
+                PogressBarForm progressBarForm = new PogressBarForm();
 
-            progressBarForm.Show();
-            
-            var answerRashod = new List<double[]>();
+                progressBarForm.Show();
+
+                var answerRashod = new List<double[]>();
 
 
-            swarm.Step(1000, i =>
-            {
-                
-                Answers.Add(new AnswerStructure(swarm.BestResult,i));
+                swarm.Step(1000, i =>
+                {
+
+                    Answers.Add(new AnswerStructure(swarm.BestResult, i));
                 //ps.Add((swarm.BestFitness, swarm.BestPosition[0]));
                 double a = i;
-                Answers[i].RashodAnswer =objectiveFunction.RashodAnswer;
-                answerRashod.Add(objectiveFunction.RashodAnswer);
-                progressBarForm.progress(Convert.ToInt32(Math.Round(a / 10)));
-                
-                return false;
-      
-            });
+                    Answers[i].RashodAnswer = objectiveFunction.RashodAnswer;
+                    answerRashod.Add(objectiveFunction.RashodAnswer);
+                    progressBarForm.progress(Convert.ToInt32(Math.Round(a / 10)));
 
-            
-            progressBarForm.Close();
-            MessageBox.Show("Расчет выполнен", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            AnswerForm answerForm = new AnswerForm();
-            answerForm.RetryAnswer(Answers);
-            answerForm.Show();
+                    return false;
+
+                });
+                var hui = swarm.ListVelosity;
+
+
+
+                progressBarForm.Close();
+                MessageBox.Show("Расчет выполнен", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                AnswerForm answerForm = new AnswerForm();
+                answerForm.RetryAnswer(Answers, swarm.ListVelosity);
+                answerForm.Show();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
-        private void fillingSheet(List<string[]> textToList)
+        private void fillingSheet(string textToList)
         {
-            
-            for (int i = 0; i<textToList[iii].Length; i++)
-            {
-                listBox1.Items.Add($"{Path.GetFileName(textToList[iii][i])}\t");
-            }
+            listBox1.Items.Add($"{Path.GetFileName(textToList)}\t");
             iii++;
         }
-
+        
+        private void exitProgram(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

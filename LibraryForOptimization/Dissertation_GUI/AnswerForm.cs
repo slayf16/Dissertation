@@ -21,26 +21,24 @@ namespace Dissertation_GUI
         /// <summary>
         /// поле для получения структуры ответа
         /// </summary>
-        public List<AnswerStructure> answerTable = new List<AnswerStructure>(); 
+        public List<AnswerStructure> answerTable = new List<AnswerStructure>();
+        List<List<double[]>> bvelosity = new List<List<double[]>>();
 
         /// <summary>
         /// конструктор формы
         /// </summary>
         public AnswerForm()        
         {
-
-            InitializeComponent();
-           
-
-            
+            InitializeComponent(); 
         }
 
         /// <summary>
         /// метод обновления поля
         /// </summary>
         /// <param name="a"></param>
-        public void RetryAnswer(List<AnswerStructure> a)
+        public void RetryAnswer(List<AnswerStructure> a, List<List<double[]>> b)
         {
+            bvelosity = b;
             answerTable = a;
             int countColumn = a[0].RashodAnswer.Length + 2;
             dataGridView1.ColumnCount = countColumn;
@@ -73,21 +71,32 @@ namespace Dissertation_GUI
         /// <param name="e"></param>
         private void button1_Click(object sender, EventArgs e)
         {
-            
-            //int indexColumn = Convert.ToInt32(textBox1.Text);
+
+            int indexColumn = 0;// Convert.ToInt32(textBox1.Text);
+
             SeriesCollection series = new SeriesCollection();
             ChartValues<double> d = new ChartValues<double>();
             List<string> index = new List<string>();
 
-            //toDO: СРЕДНЕЕ АРИФ
+            //foreach (var hui in bvelosity[0])
+            //{
+            //    d.Add(hui[0]);
+            //}
+            //foreach (var b in answerTable)
+            //{
+            //    index.Add(b.Iteration.ToString());
+            //}
+            //cartesianChart1.AxisX.Clear();
+            //cartesianChart1.AxisX.Add(new Axis()
             foreach (var b in answerTable)
             {
-                if(b.Iteration < 2)
+                if (b.Iteration < 2)
                 {
                     continue;
                 }
 
-                d.Add(b.FunctionValue);
+                //d.Add(b.FunctionValue);
+                d.Add(b.RashodAnswer[0]);
                 index.Add(b.Iteration.ToString());
             }
             cartesianChart1.AxisX.Clear();

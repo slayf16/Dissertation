@@ -24,6 +24,9 @@ namespace LibraryForOptimization.Excel.structureForExcel
         public AnswerStructure() { }
 
 
+       // List<List<double>> velosity;
+
+
         public AnswerStructure(double functionValue, int iteration)
         {
             FunctionValue = functionValue;

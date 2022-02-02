@@ -84,11 +84,11 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="ProgressBarForm.cs">
+    <Compile Include="PogressBarForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ProgressBarForm.Designer.cs">
-      <DependentUpon>ProgressBarForm.cs</DependentUpon>
+    <Compile Include="PogressBarForm.Designer.cs">
+      <DependentUpon>PogressBarForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -104,8 +104,8 @@
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ProgressBarForm.resx">
-      <DependentUpon>ProgressBarForm.cs</DependentUpon>
+    <EmbeddedResource Include="PogressBarForm.resx">
+      <DependentUpon>PogressBarForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
