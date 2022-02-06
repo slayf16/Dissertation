@@ -72,6 +72,7 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Security" />
     <Reference Include="System.Threading.Tasks" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -90,6 +91,9 @@
     <Compile Include="Excel\structureForExcel\StationInfo.cs" />
     <Compile Include="Excel\structureForExcel\StationLimitModel.cs" />
     <Compile Include="Excel\structureForExcel\StructureСaracteristicSpecificGes2.cs" />
+    <Compile Include="Excel\WorkWithExcelExport.cs" />
+    <Compile Include="ObjectiveFunction\CalculationLimit.cs" />
+    <Compile Include="ObjectiveFunction\CalculationLimitGes.cs" />
     <Compile Include="ObjectiveFunction\FunctionEnergy.cs" />
     <Compile Include="ObjectiveFunction\InitialData.cs" />
     <Compile Include="Repository\StationContext.cs" />

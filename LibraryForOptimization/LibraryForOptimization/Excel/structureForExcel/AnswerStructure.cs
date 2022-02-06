@@ -21,16 +21,29 @@ namespace LibraryForOptimization.Excel.structureForExcel
         /// </summary>
         public double[] RashodAnswer;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public double[] PowerAnswerGES;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public double[] LevelUpperBief;
+
         public AnswerStructure() { }
 
 
        // List<List<double>> velosity;
 
 
-        public AnswerStructure(double functionValue, int iteration)
+        public AnswerStructure(double functionValue, int iteration, double[] rashodAnswer, double[] powerAnswerGES, double[] levelUpperBief)
         {
             FunctionValue = functionValue;
             Iteration = iteration;
+            RashodAnswer = rashodAnswer;
+            PowerAnswerGES = powerAnswerGES;
+            LevelUpperBief = levelUpperBief;
         }
     }
 }

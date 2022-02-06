@@ -15,6 +15,13 @@ namespace LibraryForOptimization.ObjectiveFunction
         /// </summary>
         public double[] RashodAnswer { get; private set; }
 
+        /// <summary>
+        /// вектор ответов по мощности
+        /// </summary>
+        public double[] PowerAnswerGes { get; private set; }
+
+
+        public double[] LevelUpperBief { get; private set; }
 
         /// <summary>
         /// переменная для записи информации о количестве гидростанций в каскаде
@@ -241,7 +248,7 @@ namespace LibraryForOptimization.ObjectiveFunction
             var qudK = q1K1.DependentVariable2 - (q1K1.DependentVariable - Hk) *
                 (q1K1.DependentVariable2 - q2K2.DependentVariable2) / (q1K1.DependentVariable - q2K2.DependentVariable);
 
-            // расчет средней мощности и расчет выработки электроэнергии
+            // расчет средней мощности и расчет выработки электроэнергии, переделать в лист
 
             var Psh = vars[0] / qudSH;
             var Pm = vars[1] / qudM;
@@ -264,7 +271,31 @@ namespace LibraryForOptimization.ObjectiveFunction
             Ek = getEnergy(Pk, 6000, time);
             Ek = getCorrectEnergy(Ek, 225, 244.5, Zvb_srK);
 
-            RashodAnswer = vars.ToArray(); 
+            RashodAnswer = vars.ToArray();
+            //нужен будет лист
+            //PowerAnswerGes = new List<double>();
+
+            var pidorPower = new List<double>();
+
+            pidorPower.Add(Psh);
+            pidorPower.Add(Pm);
+            pidorPower.Add(Pk);
+            PowerAnswerGes = pidorPower.ToArray();
+
+            var pidorLevel = new List<double>();
+            pidorLevel.Add(Zvb_srSH);
+            pidorLevel.Add(Zvb_srM);
+            pidorLevel.Add(Zvb_srK);
+            LevelUpperBief = pidorLevel.ToArray();
+
+
+
+
+
+
+
+
+
 
             var E = Esh + Em + Ek;
             return E;

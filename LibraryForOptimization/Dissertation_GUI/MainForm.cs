@@ -5,8 +5,11 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Text.RegularExpressions;
+using System.Threading;
 using System.Windows.Forms;
 using TestOPt2;
+
 
 namespace Dissertation_GUI
 {
@@ -35,17 +38,13 @@ namespace Dissertation_GUI
         /// <summary>
         /// поле для передачи ответов в другие формы
         /// </summary>
-        public List<AnswerStructure> Answers = new List<AnswerStructure>();
+       // public List<AnswerStructure> Answers = new List<AnswerStructure>();
 
         /// <summary>
         /// словарь для чтения структур 
         /// </summary>
         public Dictionary<string, List<StructureСaracteristicGes>> structures = new Dictionary<string, List<StructureСaracteristicGes>>();
-       
-        
-       //TODO: подумать что делать с путями характеристик
-       // public List<string[]> way = new List<string[]>();
-
+      
         /// <summary>
         /// 
         /// </summary>
@@ -74,7 +73,6 @@ namespace Dissertation_GUI
         {
             try
             {
-               // var stationLimitModels = new List<StationLimitModel>();
                 List<StationInfo> stationInfoModels;
                 var openDialog = new OpenFileDialog();
                 openDialog.Filter = "Excel file (*.xlsx)|*.xlsx";
@@ -224,9 +222,7 @@ namespace Dissertation_GUI
                 if (diolog == DialogResult.OK)
                 {
                     var path = openDialog.FileNames;
-                    // way.Add(path);
-                    ///TODO: for test
-                    //fillingSheet(path);
+
                     foreach (var a in path)
                     {
                         testWay.Add(a);
@@ -260,7 +256,8 @@ namespace Dissertation_GUI
         {
             try
             {
-                //TODO: добавить останов расчета 
+                
+                var answers = new List<AnswerStructure>();
                 var objectiveFunction = new FunctionEnergy(structures);
                 objectiveFunction.Init(initialDatas[0].LevelVB, initialDatas[1].LevelVB, initialDatas[2].LevelVB);
                 var startPosition = new double[] { initialDatas[0].WaterConsumptionNB,
@@ -273,40 +270,12 @@ namespace Dissertation_GUI
                 {
                     var pList = new List<double>(p);
                     return objectiveFunction.Calculate(pList);
-                });
-                var max = 0.0;
-
+                });              
                 PogressBarForm progressBarForm = new PogressBarForm();
-
+                progressBarForm.Init(answers, swarm, objectiveFunction);
                 progressBarForm.Show();
-
-                var answerRashod = new List<double[]>();
-
-
-                swarm.Step(1000, i =>
-                {
-
-                    Answers.Add(new AnswerStructure(swarm.BestResult, i));
-                //ps.Add((swarm.BestFitness, swarm.BestPosition[0]));
-                double a = i;
-                    Answers[i].RashodAnswer = objectiveFunction.RashodAnswer;
-                    answerRashod.Add(objectiveFunction.RashodAnswer);
-                    progressBarForm.progress(Convert.ToInt32(Math.Round(a / 10)));
-
-                    return false;
-
-                });
-                var hui = swarm.ListVelosity;
-
-
-
-                progressBarForm.Close();
-                MessageBox.Show("Расчет выполнен", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                AnswerForm answerForm = new AnswerForm();
-                answerForm.RetryAnswer(Answers, swarm.ListVelosity);
-                answerForm.Show();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
@@ -321,6 +290,48 @@ namespace Dissertation_GUI
         private void exitProgram(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+
+        private void dataGridView1_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
+        {
+            Regex regex = new Regex("[А-я]");
+            double a; 
+            switch (e.ColumnIndex)
+            {
+                case 0:
+                    {
+                        if (!regex.IsMatch(e.FormattedValue.ToString()))
+                        {
+                            MessageBox.Show("Введите текст", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            e.Cancel = true;
+
+                        }
+                        break;
+                    }
+                default:
+                    {
+                        if (!double.TryParse(e.FormattedValue.ToString(),out a))
+                        {
+                            MessageBox.Show("Должно быть число", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            e.Cancel = true;
+                            break;
+                        }
+
+                        if(Convert.ToDouble(e.FormattedValue)<0)
+                        {
+                            MessageBox.Show("число должно быть положительным", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            e.Cancel = true;
+                        }
+                        break;
+                    }
+            }     
+        }
+
+        //TODO:
+        private void ClearButtonClick(object sender, EventArgs e)
+        {
+
         }
     }
 }

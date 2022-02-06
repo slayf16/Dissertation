@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using LiveCharts;
 using LiveCharts.Wpf;
+using LibraryForOptimization.Excel;
 
 namespace Dissertation_GUI
 {
@@ -22,7 +23,7 @@ namespace Dissertation_GUI
         /// поле для получения структуры ответа
         /// </summary>
         public List<AnswerStructure> answerTable = new List<AnswerStructure>();
-        List<List<double[]>> bvelosity = new List<List<double[]>>();
+       
 
         /// <summary>
         /// конструктор формы
@@ -35,35 +36,77 @@ namespace Dissertation_GUI
         /// <summary>
         /// метод обновления поля
         /// </summary>
-        /// <param name="a"></param>
-        public void RetryAnswer(List<AnswerStructure> a, List<List<double[]>> b)
+        /// <param name="answer"></param>
+        public void RetryAnswer(List<AnswerStructure> answer)
         {
-            bvelosity = b;
-            answerTable = a;
-            int countColumn = a[0].RashodAnswer.Length + 2;
-            dataGridView1.ColumnCount = countColumn;
+            var k = 2;
+            answerTable = answer;
+            int countColumn = 3 * answer[0].RashodAnswer.Length + 2;
+            //
+            dataGridView1.ColumnCount = countColumn;//+3;
             dataGridView1.Columns[0].HeaderText = "Function Value";
             dataGridView1.Columns[1].HeaderText = "iteration";
-            for (int i = 2; i < countColumn; i++)
+            dataGridView1.Columns[0].Name = "Целевая функция";
+            for (int i = 2; i < countColumn - answer[0].PowerAnswerGES.Length-answer[0].LevelUpperBief.Length; i++)
             {
                 dataGridView1.Columns[i].HeaderText = $"Q{i - 1}";
+                k++;
             }
-            
-            for(int i = 0; i<a.Count; i++)
+            var h = 1;
+            for (int i = k; i < countColumn - answer[0].PowerAnswerGES.Length; i++)
+            {                
+                dataGridView1.Columns[i].HeaderText = $"P{h}";
+                h++;
+                k++;
+            }
+
+            h = 1;
+
+            for (int i = k; i < countColumn; i++)
             {
-                dataGridView1.Rows.Add();
-                dataGridView1[0, i].Value = a[i].FunctionValue;
-                dataGridView1[1, i].Value = a[i].Iteration;
-                for (int j = 2; j < countColumn; j++)
-                {
-                    dataGridView1[j, i].Value = a[i].RashodAnswer[j - 2];
-                }
+                dataGridView1.Columns[i].HeaderText = $"Z{h}";
+                h++;
+                k++;
             }
-            //answerViewTable = a;
-            //dataGridView1.DataSource = answerViewTable;
+
+            //todo: переделать
+            //for (int i = 5; i < countColumn+3; i++)
+            //{
+            //    dataGridView1.Columns[i].HeaderText = $"P{i - 4}";
+            //}
+         ;
+            for (int i = 0; i<answer.Count; i++)
+            {
+                var kk = 2;
+                dataGridView1.Rows.Add();
+                dataGridView1[0, i].Value = answer[i].FunctionValue;
+                dataGridView1[1, i].Value = answer[i].Iteration;
+                for (int j = kk; j < countColumn - answer[0].PowerAnswerGES.Length - answer[0].LevelUpperBief.Length; j++)
+                {
+                    dataGridView1[j, i].Value = answer[i].RashodAnswer[j - 2];
+                    kk++;
+                }
+
+                for (int j = kk; j < countColumn - answer[0].PowerAnswerGES.Length; j++)
+                {
+                    dataGridView1[j, i].Value = answer[i].PowerAnswerGES[j - answer[0].RashodAnswer.Length - 2];
+                    kk++;
+                }
+
+                for (int j = kk; j < countColumn; j++)
+                {
+                    dataGridView1[j, i].Value = answer[i].LevelUpperBief[j - answer[0].RashodAnswer.Length - 2 - answer[0].PowerAnswerGES.Length];
+                    kk++;
+                }
+                //for (int j = 5; j < countColumn+3; j++)
+                //{
+                //    dataGridView1[j, i].Value = a[i].PowerAnswerGES[j - 5];
+                //}
+            }
 
         }
 
+        //todo: тормозит масштабирование
         /// <summary>
         /// Кнопка "построить график"
         /// </summary>
@@ -95,8 +138,8 @@ namespace Dissertation_GUI
                     continue;
                 }
 
-                //d.Add(b.FunctionValue);
-                d.Add(b.RashodAnswer[0]);
+                d.Add(b.FunctionValue);
+                //d.Add(b.RashodAnswer[0]);
                 index.Add(b.Iteration.ToString());
             }
             cartesianChart1.AxisX.Clear();
@@ -113,7 +156,14 @@ namespace Dissertation_GUI
 
             series.Add(s);
             cartesianChart1.Series = series;
+            cartesianChart1.Zoom = LiveCharts.ZoomingOptions.X;
+           
 
+        }
+
+        private void сохранитьКакТаблицуToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            WorkWithExcelExport.SaveToExcel(dataGridView1);
         }
     }
 }
